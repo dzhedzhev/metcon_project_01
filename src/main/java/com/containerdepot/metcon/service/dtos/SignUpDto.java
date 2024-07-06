@@ -1,21 +1,33 @@
 package com.containerdepot.metcon.service.dtos;
 
-import com.containerdepot.metcon.model.entities.Company;
-import com.containerdepot.metcon.model.entities.Role;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-import java.util.Set;
-
-public class AddUserDto {
+public class SignUpDto {
+    @NotBlank(message = "Username must not be empty.")
+    @Size(min = 4, max = 20, message = "Username size must be between 4 and 20 symbols.")
     private String username;
+    @NotBlank(message = "Password must not be empty.")
+    @Size(min = 8, max = 20, message = "Password size must be between 8 and 20 symbols.")
     private String password;
+    @NotBlank(message = "Password must not be empty.")
+    @Size(min = 8, max = 20, message = "Password size must be between 8 and 20 symbols.")
     private String confirmPassword;
+    @NotBlank(message = "First name must not be empty.")
+    @Size(min = 2, max = 50, message = "First name size must be between 2 and 50 symbols.")
     private String firstName;
+    @NotBlank(message = "Last name must not be empty.")
+    @Size(min = 2, max = 50, message = "Last name size must be between 2 and 50 symbols.")
     private String lastName;
+    @Email
+    @NotBlank(message = "Email must not be empty.")
     private String email;
+    @NotBlank(message = "Company must not be empty.")
     private String company;
+
+    public SignUpDto() {
+    }
 
     public String getUsername() {
         return username;

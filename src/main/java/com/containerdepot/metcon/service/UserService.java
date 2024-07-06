@@ -1,11 +1,10 @@
 package com.containerdepot.metcon.service;
 
-import com.containerdepot.metcon.service.dtos.AddUserDto;
-import org.springframework.stereotype.Service;
+import com.containerdepot.metcon.service.dtos.SignUpDto;
 
 
 public interface UserService {
-    void addUser(AddUserDto addUserDto);
+    boolean signUp(SignUpDto signUpDto);
     void deleteUser();
     void editUser();
 }

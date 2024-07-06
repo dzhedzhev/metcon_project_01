@@ -9,74 +9,107 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">METCON</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Services
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Sign up</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <header th:replace="fragments/commons::header"></header>
 
     <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <h2 class="text-center mb-4">Sign Up</h2>
-                <form>
+                <form th:method="post"
+                      th:action="@{/sign-up}"
+                      th:object="${signUpData}"
+                >
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="Enter username" required>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required
+                               th:field="*{username}"
+                               th:errorclass="'is-invalid alert-danger'"
+                        >
+                        <small class="invalid-feedback text-danger">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('username')}" th:text="${err}"></li>
+                            </ul>
+                        </small>
                     </div>
                     <div class="form-group">
                         <label for="email">Email address</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required
+                               th:field="*{email}"
+                               th:errorclass="'is-invalid alert-danger'"
+                        >
+                        <small class="invalid-feedback text-danger">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('email')}" th:text="${err}"></li>
+                            </ul>
+                        </small>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Password" required>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required
+                                   th:errorclass="'is-invalid alert-danger'"
+                            >
+                            <small class="invalid-feedback text-danger">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('password')}" th:text="${err}"></li>
+                                </ul>
+                            </small>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="confirmPassword">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required
+                                   th:errorclass="'is-invalid alert-danger'"
+                            >
+                            <small class="invalid-feedback text-danger">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('confirmPassword')}" th:text="${err}"></li>
+                                </ul>
+                            </small>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="company">Company</label>
-                        <input type="text" class="form-control" id="company" placeholder="Enter company name">
+                        <label for="firstName">First name</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter First name" required
+                               th:field="*{firstName}"
+                               th:errorclass="'is-invalid alert-danger'"
+                        >
+                        <small class="invalid-feedback text-danger">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}"></li>
+                            </ul>
+                        </small>
                     </div>
                     <div class="form-group">
-                        <label for="telephone">Telephone</label>
-                        <input type="tel" class="form-control" id="telephone" placeholder="Enter telephone number" required>
+                        <label for="lastName">Last name</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter Last name" required
+                               th:field="*{lastName}"
+                               th:errorclass="'is-invalid alert-danger'"
+                        >
+                        <small class="invalid-feedback text-danger">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('lastName')}" th:text="${err}"></li>
+                            </ul>
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company</label>
+                        <!--                        <input type="text" class="form-control" id="company" placeholder="Enter company name">-->
+                        <select class="form-control" id="company" name="company" required
+                                th:field="*{company}"
+                                th:errorclass="'is-invalid alert-danger'">
+                            <option value="">Select company</option>
+                            <option
+                                    th:each="name: ${allCompaniesNames}"
+                                    th:value="${name}"
+                                    th:text="${name}">
+                                Company name
+                            </option>
+                        </select>
+                        <small class="invalid-feedback text-danger">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('company')}" th:text="${err}"></li>
+                            </ul>
+                        </small>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
                 </form>
@@ -85,28 +118,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-light text-center text-lg-start">
-        <div class="container p-4">
-            <div class="row">
-                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">We secure your stock!</h5>
-                    <p>Here you can use rows and columns to organize your footer content.</p>
-                </div>
-                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Links</h5>
-                    <ul class="list-unstyled mb-0">
-                        <li><a href="#" class="text-dark">Link 1</a></li>
-                        <li><a href="#" class="text-dark">Link 2</a></li>
-                        <li><a href="#" class="text-dark">Link 3</a></li>
-                        <li><a href="#" class="text-dark">Link 4</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="text-center p-3 bg-dark text-white">
-            &copy; 2024 METCON Depot
-        </div>
-    </footer>
+    <header th:replace="fragments/commons::footer"></header>
 
     <!-- Bootstrap JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

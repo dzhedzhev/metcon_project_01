@@ -5,7 +5,7 @@ import com.containerdepot.metcon.data.UserRepository;
 import com.containerdepot.metcon.model.entities.Company;
 import com.containerdepot.metcon.model.entities.User;
 import com.containerdepot.metcon.service.UserService;
-import com.containerdepot.metcon.service.dtos.AddUserDto;
+import com.containerdepot.metcon.service.dtos.SignUpDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -25,20 +25,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(AddUserDto addUserDto) {
-        Optional<User> byUsername = this.userRepository.findByUsername(addUserDto.getUsername());
-        if (byUsername.isPresent()) {
-            return;
+    public boolean signUp(SignUpDto signUpDto) {
+        if(!signUpDto.getPassword().equals(signUpDto.getConfirmPassword())) {
+            return false;
         }
-        User user = this.modelMapper.map(addUserDto, User.class);
-        String company = addUserDto.getCompany();
+        boolean isUsernameOrEmailTaken = this.userRepository.existsByUsernameOrEmail(signUpDto.getUsername(), signUpDto.getEmail());
+        if (isUsernameOrEmailTaken) {
+            return false;
+        }
+        User user = this.modelMapper.map(signUpDto, User.class);
+        String company = signUpDto.getCompany();
         Optional<Company> byNameEn = this.companyRepository.findByNameEn(company);
         if (byNameEn.isEmpty()){
-            return;
+            return false;
         }
         user.setCompany(byNameEn.get());
         user.setRoles(new HashSet<>());
         this.userRepository.save(user);
+        return true;
     }
 
     @Override
