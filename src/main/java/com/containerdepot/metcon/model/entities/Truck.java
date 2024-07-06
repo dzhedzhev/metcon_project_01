@@ -8,12 +8,16 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "trucks")
 public class Truck extends BaseEntity{
-    @Column(nullable = false)
+    @Column(nullable = false, name = "plate_number")
     private String plateNumber;
-    @OneToOne(optional = false)
+    @OneToOne
     private Driver driver;
 
     public Truck() {
+    }
+
+    public Truck(String plateNumber) {
+        this.plateNumber = plateNumber;
     }
 
     public String getPlateNumber() {

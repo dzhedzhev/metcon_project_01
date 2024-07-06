@@ -12,10 +12,15 @@ public class Driver extends BaseEntity{
     private String fullName;
     @Column(name = "phone_number", nullable = false)
     private String PhoneNumber;
-    @OneToOne(optional = false)
+    @OneToOne
     private Truck truck;
 
     public Driver() {
+    }
+
+    public Driver(String fullName, String phoneNumber) {
+        this.fullName = fullName;
+        PhoneNumber = phoneNumber;
     }
 
     public String getFullName() {

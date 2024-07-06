@@ -27,6 +27,16 @@ public class User extends BaseEntity {
         this.roles = new HashSet<>();
     }
 
+    public User(String username, String password, Set<Role> roles, String firstName, String lastName, String email, Company company) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.company = company;
+    }
+
     public String getUsername() {
         return username;
     }

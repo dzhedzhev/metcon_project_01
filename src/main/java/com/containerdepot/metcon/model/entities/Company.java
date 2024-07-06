@@ -29,6 +29,19 @@ public class Company extends BaseEntity {
         this.containers = new ArrayList<>();
     }
 
+    public Company(String nameEn, String nameBg,
+                   int vatNumber,
+                   String address, String email,
+                   String phoneNumber) {
+        this.nameEn = nameEn;
+        this.nameBg = nameBg;
+        this.vatNumber = vatNumber;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.containers = new ArrayList<>();
+    }
+
     public String getAddress() {
         return address;
     }
