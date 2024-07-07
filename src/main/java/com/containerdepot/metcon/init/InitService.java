@@ -4,6 +4,7 @@ import com.containerdepot.metcon.data.*;
 import com.containerdepot.metcon.model.entities.*;
 import com.containerdepot.metcon.model.enums.UserRole;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
@@ -23,14 +24,16 @@ public class InitService implements CommandLineRunner {
     private final CompanyRepository companyRepository;
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public InitService(CompanyRepository companyRepository,
                        RoleRepository roleRepository,
-                       UserRepository userRepository) {
+                       UserRepository userRepository, PasswordEncoder passwordEncoder) {
 
         this.companyRepository = companyRepository;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -61,7 +64,7 @@ public class InitService implements CommandLineRunner {
             return;
         }
         UserEntity admin = new UserEntity("admin",
-                "admin",
+                passwordEncoder.encode("admin"),
                 new HashSet<>(Set.of(this.roleRepository.findByRole(UserRole.ADMIN))),
                 "admin",
                 "admin",
