@@ -7,6 +7,7 @@ import com.containerdepot.metcon.model.entities.UserEntity;
 import com.containerdepot.metcon.service.UserService;
 import com.containerdepot.metcon.service.dtos.SignUpDto;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -17,11 +18,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final CompanyRepository companyRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, CompanyRepository companyRepository) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, CompanyRepository companyRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.companyRepository = companyRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -41,6 +44,7 @@ public class UserServiceImpl implements UserService {
         }
         userEntity.setCompany(byNameEn.get());
         userEntity.setRoles(new HashSet<>());
+        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         this.userRepository.save(userEntity);
         return true;
     }
