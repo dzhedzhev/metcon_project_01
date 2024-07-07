@@ -16,10 +16,11 @@ public class Container extends BaseEntity {
     private boolean isDamaged;
     @ManyToOne
     private Company owner;
-    @Column
+    @Column(nullable = false)
     private LocalDateTime received;
+    @Column
     private LocalDateTime released;
-    @Column(name = "received_by_truck")
+    @Column(name = "received_by_truck", nullable = false)
     private String receivedByTruck;
     @Column(name = "released_to_truck")
     private String releasedToTruck;

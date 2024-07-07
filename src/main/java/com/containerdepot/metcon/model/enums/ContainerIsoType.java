@@ -18,7 +18,7 @@ public enum ContainerIsoType {
     FORTY_FOOT_TK("42T1"),
     FORTY_FIVE_FOOT_HC("45G1");
 
-    private String type;
+    private final String type;
 
     private ContainerIsoType(final String type) {
         this.type = type;

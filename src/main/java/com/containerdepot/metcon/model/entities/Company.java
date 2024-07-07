@@ -8,19 +8,19 @@ import java.util.List;
 @Entity
 @Table(name = "companies")
 public class Company extends BaseEntity {
-    @Column(name = "name_en", nullable = false)
+    @Column(name = "name_en", nullable = false, unique = true)
     private String nameEn;
-    @Column(name = "name_bg", nullable = false)
+    @Column(name = "name_bg", nullable = false, unique = true)
     private String nameBg;
-    @Column(name = "vat_number", nullable = false)
+    @Column(name = "vat_number", nullable = false, unique = true)
     private int vatNumber;
-    @OneToOne(optional = false)
-    private Location city;
+    @Column(nullable = false)
+    private String city;
     @Column(nullable = false)
     private String address;
     @Column(nullable = false, unique = true)
     private String email;
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
     @OneToMany(mappedBy = "owner")
     private List<Container> containers;
@@ -30,12 +30,13 @@ public class Company extends BaseEntity {
     }
 
     public Company(String nameEn, String nameBg,
-                   int vatNumber,
+                   int vatNumber, String city,
                    String address, String email,
                    String phoneNumber) {
         this.nameEn = nameEn;
         this.nameBg = nameBg;
         this.vatNumber = vatNumber;
+        this.city = city;
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -50,12 +51,12 @@ public class Company extends BaseEntity {
         this.address = address;
     }
 
-    public Location getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(Location address) {
-        this.city = address;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getNameEn() {
