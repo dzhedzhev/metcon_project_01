@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class UserEntity extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String username;
     @Column(nullable = false)
@@ -23,11 +23,11 @@ public class User extends BaseEntity {
     @ManyToOne(optional = false)
     private Company company;
 
-    public User() {
+    public UserEntity() {
         this.roles = new HashSet<>();
     }
 
-    public User(String username, String password, Set<Role> roles, String firstName, String lastName, String email, Company company) {
+    public UserEntity(String username, String password, Set<Role> roles, String firstName, String lastName, String email, Company company) {
         this.username = username;
         this.password = password;
         this.roles = roles;

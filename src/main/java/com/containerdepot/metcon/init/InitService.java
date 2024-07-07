@@ -60,7 +60,7 @@ public class InitService implements CommandLineRunner {
         if (byId.isEmpty()) {
             return;
         }
-        User admin = new User("admin",
+        UserEntity admin = new UserEntity("admin",
                 "admin",
                 new HashSet<>(Set.of(this.roleRepository.findByRole(UserRole.ADMIN))),
                 "admin",
