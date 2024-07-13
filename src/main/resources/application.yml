@@ -16,11 +16,7 @@ spring:
     #init:
       #mode: always
   jpa:
-    # Choose either MySQL 8 or MySQL 5 below
-    # For MySQL 8
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    #For MySQL 5
-    #database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
     open-in-view: false

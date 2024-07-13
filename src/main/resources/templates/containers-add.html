@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="fragments/commons::head"></head>
+<body>
+<!-- Navbar -->
+<header th:replace="fragments/commons::header"></header>
+<!-- Add Container Manually Form -->
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Add container</h2>
+            <form
+                    th:method="post"
+                    th:action="@{/containers/add}"
+                    th:object="${containerAddData}"
+            >
+                <div class="mb-3">
+                    <label for="number" class="form-label">Container number</label>
+                    <input type="text" class="form-control" id="number" name="number"
+                           th:field="*{number}"
+                           th:errorclass="'is-invalid alert-danger'"
+                           required
+                    />
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('number')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
+                </div>
+                <div class="mb-3">
+                    <label for="type" class="form-label">Container type</label>
+                    <select class="form-control" id="type" name="type"
+                            th:field="*{type}"
+                            th:errorclass="'is-invalid alert-danger'"
+                            required
+                    >
+                        <option value="">Select type</option>
+                        <option
+                                th:each="type: ${allContainerTypes}"
+                                th:value="${type}"
+                                th:text="${type}">
+                            Container type
+                        </option>
+                    </select>
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('type')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="isDamaged" name="isDamaged">
+                    <label class="form-check-label" for="isDamaged">Damaged</label>
+                </div>
+                <div class="mb-3">
+                    <label for="owner">Company</label>
+                    <select class="form-control" id="owner" name="owner"
+                            th:field="*{owner}"
+                            th:errorclass="'is-invalid alert-danger'"
+                            required
+                    >
+                        <option value="">Select company</option>
+                        <option
+                                th:each="name: ${allCompaniesNames}"
+                                th:value="${name}"
+                                th:text="${name}">
+                            Company name
+                        </option>
+                    </select>
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('owner')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
+                </div>
+                <div class="mb-3">
+                    <label for="received" class="form-label">Container received</label>
+                    <input type="datetime-local" class="form-control" id="received" name="received"
+                           th:field="*{received}"
+                           th:errorclass="'is-invalid alert-danger'"
+                    >
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('received')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
+                </div>
+                <div class="mb-3">
+                    <label for="receivedByTruck" class="form-label">Received by truck</label>
+                    <input type="text" class="form-control" id="receivedByTruck" name="receivedByTruck"
+                           th:field="*{receivedByTruck}"
+                           th:errorclass="'is-invalid alert-danger'"
+                    >
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('receivedByTruck')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
+                </div>
+                <div class="mb-3">
+                    <label for="released" class="form-label">Container released</label>
+                    <input type="datetime-local" class="form-control" id="released" name="released"
+                           th:field="*{released}"
+                           th:errorclass="'is-invalid alert-danger'"
+                    >
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('released')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
+                </div>
+                <div class="mb-3">
+                    <label for="releasedToTruck" class="form-label">Released to truck</label>
+                    <input type="text" class="form-control" id="releasedToTruck" name="releasedToTruck"
+                           th:field="*{releasedToTruck}"
+                           th:errorclass="'is-invalid alert-danger'"
+                    >
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('releasedToTruck')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer th:replace="fragments/commons::footer"></footer>
+
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script th:replace="fragments/commons::script"></script>
+</body>
+</html>
