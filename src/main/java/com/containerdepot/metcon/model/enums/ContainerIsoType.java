@@ -1,6 +1,6 @@
 package com.containerdepot.metcon.model.enums;
 
-public enum ContainerIsoType {
+public enum ContainerIsoType { /*TODO fix if needed*/
     TWENTY_FOOT_DV("22G1"),
     TWENTY_FOOT_FL("22P1"),
     TWENTY_FOOT_HC("25G1"),

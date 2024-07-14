@@ -12,7 +12,7 @@ public class UserEntity extends BaseEntity {
     private String username;
     @Column(nullable = false)
     private String password;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
     @Column(name = "first_name", nullable = false)
     private String firstName;
