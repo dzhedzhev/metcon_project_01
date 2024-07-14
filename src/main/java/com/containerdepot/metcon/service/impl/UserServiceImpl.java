@@ -1,6 +1,7 @@
 package com.containerdepot.metcon.service.impl;
 
 import com.containerdepot.metcon.data.CompanyRepository;
+import com.containerdepot.metcon.data.RoleRepository;
 import com.containerdepot.metcon.data.UserRepository;
 import com.containerdepot.metcon.model.entities.Company;
 import com.containerdepot.metcon.model.entities.UserEntity;
@@ -10,8 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -19,12 +20,14 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final CompanyRepository companyRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, CompanyRepository companyRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, CompanyRepository companyRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.companyRepository = companyRepository;
         this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -43,7 +46,7 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         userEntity.setCompany(byNameEn.get());
-        userEntity.setRoles(new HashSet<>());
+        userEntity.setRoles(signUpDto.getRoles().stream().map(this.roleRepository::findByRole).collect(Collectors.toSet()));
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         this.userRepository.save(userEntity);
         return true;

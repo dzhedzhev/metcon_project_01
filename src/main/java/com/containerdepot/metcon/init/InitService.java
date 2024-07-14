@@ -16,6 +16,7 @@ public class InitService implements CommandLineRunner {
 
     private final List<Role> roles = new ArrayList<>(List.of(
             new Role(UserRole.USER),
+            new Role(UserRole.OPERATOR),
             new Role(UserRole.MODERATOR),
             new Role(UserRole.ADMIN)
             ));

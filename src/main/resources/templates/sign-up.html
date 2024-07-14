@@ -40,8 +40,8 @@
                             </ul>
                         </small>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
+                    <div class="form-group">
+                        <div class="form-group form-inline">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Password" required
                                    th:errorclass="'is-invalid alert-danger'"
@@ -52,7 +52,7 @@
                                 </ul>
                             </small>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group form-inline">
                             <label for="confirmPassword">Confirm Password</label>
                             <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required
                                    th:errorclass="'is-invalid alert-danger'"
@@ -107,6 +107,12 @@
                                 <li th:each="err : ${#fields.errors('company')}" th:text="${err}"></li>
                             </ul>
                         </small>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check form-check-inline" th:each="role : ${allRoles}">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" th:value="${role}" th:name="roles">
+                            <label class="form-check-label" for="inlineCheckbox1" th:text="${role}">1</label>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
                 </form>

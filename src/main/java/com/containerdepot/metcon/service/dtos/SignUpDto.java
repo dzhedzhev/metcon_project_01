@@ -1,8 +1,12 @@
 package com.containerdepot.metcon.service.dtos;
 
+import com.containerdepot.metcon.model.enums.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
+import java.util.Set;
 
 public class SignUpDto {
     @NotBlank(message = "Username must not be empty.")
@@ -25,6 +29,8 @@ public class SignUpDto {
     private String email;
     @NotBlank(message = "Company must not be empty.")
     private String company;
+    @NotNull(message = "At least one role must be selected.")
+    private Set<UserRole> roles;
 
     public SignUpDto() {
     }
@@ -84,5 +90,13 @@ public class SignUpDto {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
     }
 }

@@ -1,5 +1,7 @@
 package com.containerdepot.metcon.controller;
 
+import com.containerdepot.metcon.model.enums.ContainerIsoType;
+import com.containerdepot.metcon.model.enums.UserRole;
 import com.containerdepot.metcon.service.CompanyService;
 import com.containerdepot.metcon.service.UserService;
 import com.containerdepot.metcon.service.dtos.SignUpDto;
@@ -30,9 +32,13 @@ public class UserController {
     public List<String> allCompaniesNames() {
         return this.companyService.allCompaniesNames();
     }
-
     @ModelAttribute("signUpData")
     public SignUpDto signUpDto() {return new SignUpDto();}
+    @ModelAttribute("allRoles")
+    public UserRole[] allRoles() {
+        return UserRole.values();
+    }
+
     @GetMapping("/login")
     public String viewLogin() {
         return "/login";
