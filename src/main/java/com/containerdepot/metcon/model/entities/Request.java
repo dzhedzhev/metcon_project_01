@@ -1,28 +1,26 @@
 package com.containerdepot.metcon.model.entities;
 
+import com.containerdepot.metcon.model.enums.ContainerIsoType;
 import com.containerdepot.metcon.model.enums.RequestEnum;
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "requests")
 public class Request extends BaseEntity{
     @ManyToOne(optional = false)
     private Company company;
-    @OneToMany
-    private List<Container> containers;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RequestEnum type;
-    @OneToMany(mappedBy = "request")
-    private List<Task> tasks;
+    @Column(name = "container_number", nullable = false)
+    private String containerNumber;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "container_type", nullable = false)
+    private ContainerIsoType containerType;
+    private String truck;
 
 
     public Request() {
-        this.containers = new ArrayList<>();
-        this.tasks = new ArrayList<>();
     }
 
     public Company getCompany() {
@@ -33,14 +31,6 @@ public class Request extends BaseEntity{
         this.company = company;
     }
 
-    public List<Container> getContainers() {
-        return containers;
-    }
-
-    public void setContainers(List<Container> containers) {
-        this.containers = containers;
-    }
-
     public RequestEnum getType() {
         return type;
     }
@@ -49,11 +39,27 @@ public class Request extends BaseEntity{
         this.type = type;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public String getContainerNumber() {
+        return containerNumber;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setContainerNumber(String containerNumber) {
+        this.containerNumber = containerNumber;
+    }
+
+    public ContainerIsoType getContainerType() {
+        return containerType;
+    }
+
+    public void setContainerType(ContainerIsoType containerType) {
+        this.containerType = containerType;
+    }
+
+    public String getTruck() {
+        return truck;
+    }
+
+    public void setTruck(String truck) {
+        this.truck = truck;
     }
 }

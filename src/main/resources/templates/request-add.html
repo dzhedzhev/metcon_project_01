@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="fragments/commons::head"></head>
+<body>
+<!-- Navbar -->
+<header th:replace="fragments/commons::header"></header>
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <h2 class="text-center mb-4">Request</h2>
+            <form class="row g-3">
+                <div class="col-md-3">
+                    <label for="request" class="form-label">Request type</label>
+                    <select class="form-select" id="request" name="request" required>
+                        <option value="">Select type</option>
+                        <option
+                                th:each="type: ${allRequestTypes}"
+                                th:value="${type}"
+                                th:text="${type}">
+                            Container type
+                        </option>
+                    </select>
+<!--                    <small class="invalid-feedback text-danger">-->
+<!--                        <ul>-->
+<!--                            <li th:each="err : ${#fields.errors('type')}" th:text="${err}"></li>-->
+<!--                        </ul>-->
+<!--                    </small>-->
+                </div>
+                <div class="col-md-4">
+                    <label for="inputZip" class="form-label">Container No.</label>
+                    <input type="text" class="form-control" id="inputZip">
+                </div>
+                <div class="col-md-4">
+                    <label for="type" class="form-label">Container type</label>
+                    <select class="form-select" id="type" name="type" required>
+                        <option value="">Select type</option>
+                        <option
+                                th:each="type: ${allContainerTypes}"
+                                th:value="${type}"
+                                th:text="${type}">
+                            Container type
+                        </option>
+                    </select>
+<!--                    <small class="invalid-feedback text-danger">-->
+<!--                        <ul>-->
+<!--                            <li th:each="err : ${#fields.errors('type')}" th:text="${err}"></li>-->
+<!--                        </ul>-->
+<!--                    </small>-->
+                </div>
+                <div class="col-md-4">
+                    <label for="inputEmail4" class="form-label">Truck No.</label>
+                    <input type="email" class="form-control" id="inputEmail4">
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Add request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<footer th:replace="fragments/commons::footer"></footer>
+
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script th:replace="fragments/commons::script"></script>
+</body>
+</html>
