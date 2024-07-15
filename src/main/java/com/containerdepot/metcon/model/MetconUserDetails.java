@@ -1,7 +1,9 @@
 package com.containerdepot.metcon.model;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 

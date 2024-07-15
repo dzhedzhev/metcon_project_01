@@ -11,10 +11,14 @@
     <div class="row justify-content-center">
         <div class="col-md-7">
             <h2 class="text-center mb-4">Request</h2>
-            <form class="row g-3">
+            <form class="row g-3"
+                  th:method="post"
+                  th:action="@{/containers/requests/add}"
+                  th:object="${requestAddData}"
+            >
                 <div class="col-md-3">
-                    <label for="request" class="form-label">Request type</label>
-                    <select class="form-select" id="request" name="request" required>
+                    <label for="type" class="form-label">Request type</label>
+                    <select class="form-select" id="type" name="type" required>
                         <option value="">Select type</option>
                         <option
                                 th:each="type: ${allRequestTypes}"
@@ -30,12 +34,12 @@
 <!--                    </small>-->
                 </div>
                 <div class="col-md-4">
-                    <label for="inputZip" class="form-label">Container No.</label>
-                    <input type="text" class="form-control" id="inputZip">
+                    <label for="containerNumber" class="form-label">Container No.</label>
+                    <input type="text" class="form-control" id="containerNumber" name="containerNumber">
                 </div>
                 <div class="col-md-4">
-                    <label for="type" class="form-label">Container type</label>
-                    <select class="form-select" id="type" name="type" required>
+                    <label for="containerType" class="form-label">Container type</label>
+                    <select class="form-select" id="containerType" name="containerType" required>
                         <option value="">Select type</option>
                         <option
                                 th:each="type: ${allContainerTypes}"
@@ -51,12 +55,10 @@
 <!--                    </small>-->
                 </div>
                 <div class="col-md-4">
-                    <label for="inputEmail4" class="form-label">Truck No.</label>
-                    <input type="email" class="form-control" id="inputEmail4">
+                    <label for="truck" class="form-label">Truck No.</label>
+                    <input type="email" class="form-control" id="truck" name="truck">
                 </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Add request</button>
-                </div>
+                <button type="submit" class="btn btn-primary">Add request</button>
             </form>
         </div>
     </div>
