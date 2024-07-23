@@ -35,7 +35,7 @@ public class MetconUserDetailsService implements UserDetailsService {
 //        return User
 //                .withUsername(userEntity.getUsername())
 //                .password(userEntity.getPassword())
-//                .authorities(List.of())/*TODO*/
+//                .authorities(List.of())
 //                .disabled(false)
 //                .build();
         return new MetconUserDetails(

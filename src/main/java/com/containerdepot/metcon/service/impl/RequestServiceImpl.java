@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,5 +48,10 @@ public class RequestServiceImpl implements RequestService {
         request.setCompany(company);
         this.requestRepository.save(request);
         return true;
+    }
+
+    @Override
+    public List<Request> findAllContainersByIdDesc() {
+        return this.requestRepository.findByOrderByIdDesc();
     }
 }

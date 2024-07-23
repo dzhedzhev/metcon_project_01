@@ -1,5 +1,6 @@
 package com.containerdepot.metcon.controller;
 
+import com.containerdepot.metcon.model.entities.Request;
 import com.containerdepot.metcon.model.enums.ContainerIsoType;
 import com.containerdepot.metcon.model.enums.RequestEnum;
 import com.containerdepot.metcon.service.RequestService;
@@ -13,15 +14,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/containers")
-public class RequestController {
-    private RequestService requestService;
+public class RequestController { /*TODO transform to REST controller*/
+    private final RequestService requestService;
 
     public RequestController(RequestService requestService) {
         this.requestService = requestService;
     }
-
+    @ModelAttribute("allRequests")
+    public List<Request> getAllRequests() { return this.requestService.findAllContainersByIdDesc();}
     @ModelAttribute("allContainerTypes")
     public ContainerIsoType[] allContainerTypes() {
         return ContainerIsoType.values();
@@ -53,4 +57,6 @@ public class RequestController {
         }
         return "redirect:/home";
     }
+    @GetMapping("/requests/all")
+    public String viewRequestsAll() {return "requests-all";}
 }
