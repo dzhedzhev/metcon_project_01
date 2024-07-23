@@ -13,7 +13,7 @@ public class Company extends BaseEntity {
     @Column(name = "name_bg", nullable = false, unique = true)
     private String nameBg;
     @Column(name = "vat_number", nullable = false, unique = true)
-    private int vatNumber;
+    private String vatNumber;
     @Column(nullable = false)
     private String city;
     @Column(nullable = false)
@@ -30,7 +30,7 @@ public class Company extends BaseEntity {
     }
 
     public Company(String nameEn, String nameBg,
-                   int vatNumber, String city,
+                   String vatNumber, String city,
                    String address, String email,
                    String phoneNumber) {
         this.nameEn = nameEn;
@@ -75,11 +75,11 @@ public class Company extends BaseEntity {
         this.nameBg = nameBg;
     }
 
-    public int getVatNumber() {
+    public String getVatNumber() {
         return vatNumber;
     }
 
-    public void setVatNumber(int vatNumber) {
+    public void setVatNumber(String vatNumber) {
         this.vatNumber = vatNumber;
     }
 

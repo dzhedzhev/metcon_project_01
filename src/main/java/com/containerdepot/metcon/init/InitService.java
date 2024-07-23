@@ -21,7 +21,7 @@ public class InitService implements CommandLineRunner {
             new Role(UserRole.ADMIN)
             ));
 
-    private final Company company = new Company("MET", "МЕТ", 154689941, "Varna", "Ivan Shishman 30 str.", "met-depot@metcontainer.com", "+35952 150 148");
+    private final Company company = new Company("MET", "МЕТ", "BG154689941", "Varna", "Ivan Shishman 30 str.", "met-depot@metcontainer.com", "+35952 150 148");
     private final CompanyRepository companyRepository;
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;

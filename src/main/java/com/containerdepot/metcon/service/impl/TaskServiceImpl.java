@@ -11,7 +11,9 @@ import com.containerdepot.metcon.service.dtos.TaskAddDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -46,5 +48,17 @@ public class TaskServiceImpl implements TaskService {
         task.setRequest(optionalRequest.get());
         this.taskRepository.save(task);
         return true;
+    }
+
+    @Override
+    public List<TaskAddDto> getAllTasks() {
+        return this.taskRepository.findAll().stream().map(t -> {
+            TaskAddDto taskAddDto = this.modelMapper.map(t, TaskAddDto.class);
+            taskAddDto.setCompany(t.getCompany().getNameEn());
+            taskAddDto.setType(t.getType().name());
+            taskAddDto.setContainerType(t.getContainerType().name());
+            taskAddDto.setRequestId(t.getRequest().getId());
+            return taskAddDto;
+        }).collect(Collectors.toList());
     }
 }

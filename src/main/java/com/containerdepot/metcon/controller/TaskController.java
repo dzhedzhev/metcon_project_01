@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -24,8 +25,16 @@ public class TaskController {
         this.requestRepository = requestRepository;
         this.taskService = taskService;
     }
+
     @ModelAttribute("taskAddData")
-    public TaskAddDto taskAddDto() {return new TaskAddDto();}
+    public TaskAddDto taskAddDto() {
+        return new TaskAddDto();
+    }
+
+    @ModelAttribute("allTasks")
+    public List<TaskAddDto> getAllTasks() {
+        return this.taskService.getAllTasks();
+    }
 
     @GetMapping("/add")
     public String viewTaskAdd(
@@ -47,10 +56,11 @@ public class TaskController {
         model.addAttribute("taskAddDto", taskAddDto);
         return "task-add";
     }
+
     @PostMapping("/add")
-    public String doTaskAdd (@Valid TaskAddDto data,
-                                BindingResult bindingResult,
-                                RedirectAttributes redirectAttributes
+    public String doTaskAdd(@Valid TaskAddDto data,
+                            BindingResult bindingResult,
+                            RedirectAttributes redirectAttributes
     ) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("taskAddData", data);
@@ -63,5 +73,9 @@ public class TaskController {
             return "redirect:/containers/tasks/add";
         }
         return "redirect:/home";
+    }
+    @GetMapping("/all")
+    public String viewAllTasks() {
+        return "tasks-all";
     }
 }
