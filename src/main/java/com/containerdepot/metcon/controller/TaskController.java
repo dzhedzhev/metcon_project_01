@@ -2,8 +2,8 @@ package com.containerdepot.metcon.controller;
 
 import com.containerdepot.metcon.data.RequestRepository;
 import com.containerdepot.metcon.model.entities.Request;
+import com.containerdepot.metcon.service.RequestService;
 import com.containerdepot.metcon.service.TaskService;
-import com.containerdepot.metcon.service.dtos.RequestAddDto;
 import com.containerdepot.metcon.service.dtos.TaskAddDto;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -18,12 +18,12 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/containers/tasks")
 public class TaskController {
-    private final RequestRepository requestRepository;
     private final TaskService taskService;
+    private final RequestService requestService;
 
-    public TaskController(RequestRepository requestRepository, TaskService taskService) {
-        this.requestRepository = requestRepository;
+    public TaskController(TaskService taskService, RequestService requestService) {
         this.taskService = taskService;
+        this.requestService = requestService;
     }
 
     @ModelAttribute("taskAddData")
@@ -41,7 +41,7 @@ public class TaskController {
             Model model,
             @RequestParam long id
     ) {
-        Optional<Request> byId = this.requestRepository.findById(id);
+        Optional<Request> byId = this.requestService.findRequestById(id);
         if (byId.isEmpty()) {
             return "redirect:/containers/requests/all";
         }

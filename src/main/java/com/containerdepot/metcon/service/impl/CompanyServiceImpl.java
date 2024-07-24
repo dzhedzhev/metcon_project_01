@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -36,5 +37,15 @@ public class CompanyServiceImpl implements CompanyService {
         Company mappedCompany = this.modelMapper.map(data, Company.class);
         this.companyRepository.save(mappedCompany);
         return true;
+    }
+
+    @Override
+    public List<Company> allCompanies() {
+        return this.companyRepository.findAll();
+    }
+
+    @Override
+    public Optional<Company> findCompanyById(long id) {
+        return this.companyRepository.findById(id);
     }
 }

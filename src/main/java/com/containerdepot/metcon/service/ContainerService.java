@@ -11,4 +11,6 @@ public interface ContainerService {
     boolean add(ContainerAddDto data);
 
     public List<Container> getAllOrderedByReceivedDesc();
+
+    List<Container> findAllByCompanyId(long id);/*TODO return list of ContainerDto*/
 }

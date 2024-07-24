@@ -47,4 +47,9 @@ public class ContainerServiceImpl implements ContainerService {
     public List<Container> getAllOrderedByReceivedDesc() {
         return this.containerRepository.findByOrderByReceivedDesc();/*TODO pagination*/
     }
+
+    @Override
+    public List<Container> findAllByCompanyId(long id) {
+        return this.containerRepository.findAllByOwnerId(id);
+    }
 }

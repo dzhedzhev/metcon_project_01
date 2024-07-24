@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface ContainerRepository extends JpaRepository<Container, Long> {
     Optional<Container> findByNumber(String number);
     List<Container> findByOrderByReceivedDesc();
+    List<Container> findAllByOwnerId(long id);
 }

@@ -1,5 +1,7 @@
 package com.containerdepot.metcon.controller;
 
+import com.containerdepot.metcon.data.CompanyRepository;
+import com.containerdepot.metcon.model.entities.Company;
 import com.containerdepot.metcon.model.entities.Container;
 import com.containerdepot.metcon.model.enums.ContainerIsoType;
 import com.containerdepot.metcon.service.CompanyService;
@@ -7,22 +9,27 @@ import com.containerdepot.metcon.service.ContainerService;
 import com.containerdepot.metcon.service.dtos.ContainerAddDto;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ContainerController {
     private final ContainerService containerService;
     private final CompanyService companyService;
+    private final CompanyRepository companyRepository;
 
-    public ContainerController(ContainerService containerService, CompanyService companyService) {
+    public ContainerController(ContainerService containerService, CompanyService companyService, CompanyRepository companyRepository) {
         this.containerService = containerService;
         this.companyService = companyService;
+        this.companyRepository = companyRepository;
     }
 
     @ModelAttribute("containerAddData")
@@ -73,5 +80,18 @@ public class ContainerController {
         }
 
         return "redirect:/containers/all";
+    }
+    @GetMapping("/containers/company")
+    public String viewContainersCompany(
+            Model model,
+            @RequestParam long id
+    ) {
+        Optional<Company> optionalCompany = this.companyService.findCompanyById(id);
+        if (optionalCompany.isEmpty()) {
+            return "redirect:/companies/all";
+        }
+        List<Container> containersByCompanyId = this.containerService.findAllByCompanyId(optionalCompany.get().getId());
+        model.addAttribute("companyContainers", containersByCompanyId);
+        return "containers-company";
     }
 }

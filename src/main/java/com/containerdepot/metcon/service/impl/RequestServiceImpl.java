@@ -54,4 +54,9 @@ public class RequestServiceImpl implements RequestService {
     public List<Request> findAllContainersByIdDesc() {
         return this.requestRepository.findByOrderByIdDesc();
     }
+
+    @Override
+    public Optional<Request> findRequestById(long id) {
+        return this.requestRepository.findById(id);
+    }
 }
