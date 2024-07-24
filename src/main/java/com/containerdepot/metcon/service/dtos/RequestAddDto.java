@@ -1,4 +1,5 @@
 package com.containerdepot.metcon.service.dtos;
+import com.containerdepot.metcon.model.enums.ContainerIsoType;
 import com.containerdepot.metcon.model.enums.RequestEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,8 +11,8 @@ public class RequestAddDto {
     @NotBlank(message = "Container number must not be empty!")
     @Pattern(regexp = "([a-zA-Z]{3})([UJZujz])(\\d{6})(\\d)", message = "Container number is not in correct format!")
     private String containerNumber;
-    @NotBlank(message = "Container type must be selected!")
-    private String containerType;
+    @NotNull(message = "Container type must be selected!")
+    private ContainerIsoType containerType;
     private String truck;
 
     public RequestAddDto() {
@@ -33,11 +34,11 @@ public class RequestAddDto {
         this.containerNumber = number;
     }
 
-    public String getContainerType() {
+    public ContainerIsoType getContainerType() {
         return containerType;
     }
 
-    public void setContainerType(String containerType) {
+    public void setContainerType(ContainerIsoType containerType) {
         this.containerType = containerType;
     }
 

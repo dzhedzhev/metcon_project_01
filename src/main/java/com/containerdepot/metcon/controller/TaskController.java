@@ -35,7 +35,7 @@ public class TaskController {
     public List<TaskAddDto> getAllTasks() {
         return this.taskService.getAllTasks();
     }
-
+    
     @GetMapping("/add")
     public String viewTaskAdd(
             Model model,

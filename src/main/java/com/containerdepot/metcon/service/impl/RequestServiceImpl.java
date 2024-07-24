@@ -59,4 +59,26 @@ public class RequestServiceImpl implements RequestService {
     public Optional<Request> findRequestById(long id) {
         return this.requestRepository.findById(id);
     }
+
+    @Override
+    public void delete(Long id) {
+        if (this.requestRepository.existsById(id)) {
+            this.requestRepository.deleteById(id);
+        } /*TODO exception handling*/
+    }
+
+    @Override
+    public boolean edit(Long id, RequestAddDto data) {
+        Optional<Request> optionalRequest = this.requestRepository.findById(id);
+        if (optionalRequest.isEmpty()) {
+            return false;
+        }
+        Request request = optionalRequest.get();
+        request.setType(data.getType());
+        request.setContainerNumber(data.getContainerNumber());
+        request.setContainerType(data.getContainerType());
+        request.setTruck(data.getTruck());
+        this.requestRepository.save(request);
+        return true;
+    }
 }

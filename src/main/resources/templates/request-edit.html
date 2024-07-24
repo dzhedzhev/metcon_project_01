@@ -10,16 +10,20 @@
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
         <div class="col-md-7">
-            <h2 class="text-center mb-4">Request</h2>
+            <h2 class="text-center mb-4">Edit request</h2>
             <form class="row g-3"
                   th:method="post"
-                  th:action="@{/containers/requests/add}"
+                  th:action="@{/containers/requests/edit/{id}(id=${requestId})}"
                   th:object="${requestAddData}"
             >
+                <div class="col-md-4">
+                    <label for="containerNumber" class="form-label">Request ID.</label>
+                    <input readonly type="text" class="form-control-plaintext" id="id" name="id" th:value="${requestId}">
+                </div>
                 <div class="col-md-3">
                     <label for="type" class="form-label">Request type</label>
                     <select class="form-select" id="type" name="type" required>
-                        <option value="">Select type</option>
+                        <option th:value="${requestDto.type}" th:text="${requestDto.type}">Select type</option>
                         <option
                                 th:each="type: ${allRequestTypes}"
                                 th:value="${type}"
@@ -35,12 +39,12 @@
                 </div>
                 <div class="col-md-4">
                     <label for="containerNumber" class="form-label">Container No.</label>
-                    <input type="text" class="form-control" id="containerNumber" name="containerNumber">
+                    <input type="text" class="form-control" id="containerNumber" name="containerNumber" th:value="${requestDto.containerNumber}">
                 </div>
                 <div class="col-md-4">
                     <label for="containerType" class="form-label">Container type</label>
                     <select class="form-select" id="containerType" name="containerType" required>
-                        <option value="">Select type</option>
+                        <option th:value="${requestDto.containerType}" th:text="${requestDto.containerType}">Select type</option>
                         <option
                                 th:each="type: ${allContainerTypes}"
                                 th:value="${type}"
@@ -56,9 +60,9 @@
                 </div>
                 <div class="col-md-4">
                     <label for="truck" class="form-label">Truck No.</label>
-                    <input type="text" class="form-control" id="truck" name="truck">
+                    <input type="text" class="form-control" id="truck" name="truck" th:value="${requestDto.truck}">
                 </div>
-                <button type="submit" class="btn btn-primary">Add request</button>
+                <button type="submit" class="btn btn-primary">Edit request</button>
             </form>
         </div>
     </div>

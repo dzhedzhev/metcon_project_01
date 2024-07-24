@@ -21,21 +21,27 @@
                         <th>Type</th>
                         <th>Truck</th>
                         <th>Company</th>
-                        <th>Action</th>
+                        <th style="border-right: none">Action</th>
+                        <th style="border-left: none"></th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
                     <tr th:each="request : ${allRequests}">
-                        <td th:value="${request.getId()}" th:text="${request.getId()}">1</td>
-                        <td th:value="${request.getType()}" th:text="${request.getType()}">Data 1</td>
-                        <td th:value="${request.getContainerNumber()}" th:text="${request.getContainerNumber()}">Data 2</td>
-                        <td th:value="${request.getContainerType()}" th:text="${request.getContainerType()}">Data 3</td>
-                        <td th:value="${request.getTruck()}" th:text="${request.getTruck()}">Data 4</td>
+                        <td th:value="${request.id}" th:text="${request.id}">1</td>
+                        <td th:value="${request.type}" th:text="${request.type}">Data 1</td>
+                        <td th:value="${request.containerNumber}" th:text="${request.containerNumber}">Data 2</td>
+                        <td th:value="${request.containerType}" th:text="${request.containerType}">Data 3</td>
+                        <td th:value="${request.truck}" th:text="${request.truck}">Data 4</td>
                         <td th:value="${request.getCompany().getNameEn()}" th:text="${request.getCompany().getNameEn()}">Data 5</td>
-                        <td style="white-space: nowrap">
-                            <a class="btn btn-primary btn-sm mb-1" th:href="@{/containers/add}" role="button">Edit</a>
+                        <td style="border-right: none">
+                            <a class="btn btn-primary btn-sm mb-1" th:href="@{/containers/requests/edit/{id}(id=${request.id})}" role="button">Edit</a>
                             <a class="btn btn-success btn-sm mb-1" th:href="@{/containers/tasks/add(id=${request.id})}" role="button">Create task</a>
-                            <a class="btn btn-danger btn-sm mb-1" th:href="@{/containers/add}" role="button">Delete</a>
+                        </td>
+                        <td style="border-left: none">
+                            <form th:method="delete"
+                                  th:action="@{/containers/requests/delete/{id}(id=${request.id})}" class="inline-block">
+                                <button class="btn btn-danger btn-sm mb-1" th:href="@{/containers/add}" type="submit">Delete</button>
+                            </form>
                         </td>
                     </tr>
                     <!-- Add more rows as needed -->

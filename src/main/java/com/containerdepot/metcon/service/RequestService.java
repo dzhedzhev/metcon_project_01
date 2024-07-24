@@ -12,4 +12,8 @@ public interface RequestService {
     List<Request> findAllContainersByIdDesc();
 
     Optional<Request> findRequestById(long id);
+
+    void delete(Long id);
+
+    boolean edit(Long id, RequestAddDto data);
 }
