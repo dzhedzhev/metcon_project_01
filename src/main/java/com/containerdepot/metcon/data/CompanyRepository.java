@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Long> {
     Optional<Company> findByNameEn(String company);
+    boolean existsByNameEnOrVatNumberOrEmailOrPhoneNumber(String nameEn, String vat, String email, String phone);
 }
