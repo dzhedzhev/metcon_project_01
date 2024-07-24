@@ -1,7 +1,7 @@
 package com.containerdepot.metcon.service;
 
 import com.containerdepot.metcon.model.entities.Request;
-import com.containerdepot.metcon.service.dtos.RequestAddDto;
+import com.containerdepot.metcon.service.dtos.imports.RequestAddDto;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package com.containerdepot.metcon.service.dtos;
+package com.containerdepot.metcon.service.dtos.imports;
 import com.containerdepot.metcon.model.enums.ContainerIsoType;
 import com.containerdepot.metcon.model.enums.RequestEnum;
 import jakarta.validation.constraints.NotBlank;

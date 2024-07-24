@@ -7,7 +7,7 @@ import com.containerdepot.metcon.model.entities.Company;
 import com.containerdepot.metcon.model.entities.Request;
 import com.containerdepot.metcon.model.entities.Task;
 import com.containerdepot.metcon.service.TaskService;
-import com.containerdepot.metcon.service.dtos.TaskAddDto;
+import com.containerdepot.metcon.service.dtos.imports.TaskAddDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 

@@ -6,7 +6,7 @@ import com.containerdepot.metcon.model.entities.Container;
 import com.containerdepot.metcon.model.enums.ContainerIsoType;
 import com.containerdepot.metcon.service.CompanyService;
 import com.containerdepot.metcon.service.ContainerService;
-import com.containerdepot.metcon.service.dtos.ContainerAddDto;
+import com.containerdepot.metcon.service.dtos.imports.ContainerAddDto;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

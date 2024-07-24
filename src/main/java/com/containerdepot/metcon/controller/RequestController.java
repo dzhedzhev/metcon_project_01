@@ -4,7 +4,7 @@ import com.containerdepot.metcon.model.entities.Request;
 import com.containerdepot.metcon.model.enums.ContainerIsoType;
 import com.containerdepot.metcon.model.enums.RequestEnum;
 import com.containerdepot.metcon.service.RequestService;
-import com.containerdepot.metcon.service.dtos.RequestAddDto;
+import com.containerdepot.metcon.service.dtos.imports.RequestAddDto;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -90,7 +90,7 @@ public class RequestController { /*TODO transform to REST controller*/
         }
         boolean success = this.requestService.edit(id, data);
         if (!success) {
-            return "redirect:/containers/requests/all";
+            return "redirect:/containers/requests/all"; /*TODO error handling*/
         }
         return "redirect:/containers/requests/all";
     }

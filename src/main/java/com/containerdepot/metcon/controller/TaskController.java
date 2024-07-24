@@ -1,10 +1,9 @@
 package com.containerdepot.metcon.controller;
 
-import com.containerdepot.metcon.data.RequestRepository;
 import com.containerdepot.metcon.model.entities.Request;
 import com.containerdepot.metcon.service.RequestService;
 import com.containerdepot.metcon.service.TaskService;
-import com.containerdepot.metcon.service.dtos.TaskAddDto;
+import com.containerdepot.metcon.service.dtos.imports.TaskAddDto;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +34,7 @@ public class TaskController {
     public List<TaskAddDto> getAllTasks() {
         return this.taskService.getAllTasks();
     }
-    
+
     @GetMapping("/add")
     public String viewTaskAdd(
             Model model,

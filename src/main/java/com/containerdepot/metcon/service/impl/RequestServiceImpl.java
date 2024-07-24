@@ -3,15 +3,13 @@ package com.containerdepot.metcon.service.impl;
 import com.containerdepot.metcon.authentication.AuthenticationFacade;
 import com.containerdepot.metcon.data.RequestRepository;
 import com.containerdepot.metcon.data.UserRepository;
-import com.containerdepot.metcon.model.MetconUserDetails;
 import com.containerdepot.metcon.model.entities.Company;
 import com.containerdepot.metcon.model.entities.Request;
 import com.containerdepot.metcon.model.entities.UserEntity;
 import com.containerdepot.metcon.service.RequestService;
-import com.containerdepot.metcon.service.dtos.RequestAddDto;
+import com.containerdepot.metcon.service.dtos.imports.RequestAddDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

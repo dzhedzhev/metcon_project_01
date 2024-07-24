@@ -1,6 +1,6 @@
 package com.containerdepot.metcon.service;
 
-import com.containerdepot.metcon.service.dtos.SignUpDto;
+import com.containerdepot.metcon.service.dtos.imports.SignUpDto;
 
 
 public interface UserService {

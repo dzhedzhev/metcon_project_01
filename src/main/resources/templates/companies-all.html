@@ -30,7 +30,7 @@
                     </ul>
                     <div class="card-body">
                         <a th:href="@{/containers/company(id=${company.id})}" class="btn btn-warning">Containers</a>
-                        <a href="#" class="btn btn-primary">Edit</a>
+                        <a class="btn btn-primary" th:href="@{/companies/edit/{id}(id=${company.id})}">Edit</a>
                         <a href="#" class="btn btn-danger">Delete</a>
                     </div>
                 </div>

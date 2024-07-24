@@ -1,10 +1,9 @@
 package com.containerdepot.metcon.controller;
 
-import com.containerdepot.metcon.model.enums.ContainerIsoType;
 import com.containerdepot.metcon.model.enums.UserRole;
 import com.containerdepot.metcon.service.CompanyService;
 import com.containerdepot.metcon.service.UserService;
-import com.containerdepot.metcon.service.dtos.SignUpDto;
+import com.containerdepot.metcon.service.dtos.imports.SignUpDto;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;

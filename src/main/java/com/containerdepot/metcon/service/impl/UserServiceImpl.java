@@ -6,7 +6,7 @@ import com.containerdepot.metcon.data.UserRepository;
 import com.containerdepot.metcon.model.entities.Company;
 import com.containerdepot.metcon.model.entities.UserEntity;
 import com.containerdepot.metcon.service.UserService;
-import com.containerdepot.metcon.service.dtos.SignUpDto;
+import com.containerdepot.metcon.service.dtos.imports.SignUpDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.containerdepot.metcon.service.dtos;
+package com.containerdepot.metcon.service.dtos.imports;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class CompanyAddDto {
+    private long id;
     @NotBlank(message = "Name must not be empty!")
     @Size(min = 2, max = 50, message = "Name length must be between 2 and 50 symbols!")
     private String nameEn;
@@ -29,6 +30,14 @@ public class CompanyAddDto {
     private String phoneNumber;/*TODO add regexp validation?*/
 
     public CompanyAddDto() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNameEn() {

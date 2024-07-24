@@ -1,7 +1,6 @@
 package com.containerdepot.metcon.service;
 
-import com.containerdepot.metcon.model.entities.Task;
-import com.containerdepot.metcon.service.dtos.TaskAddDto;
+import com.containerdepot.metcon.service.dtos.imports.TaskAddDto;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.containerdepot.metcon.service.dtos;
+package com.containerdepot.metcon.service.dtos.imports;
 
 import com.containerdepot.metcon.model.enums.UserRole;
 import jakarta.validation.constraints.Email;

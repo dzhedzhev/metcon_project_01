@@ -1,4 +1,4 @@
-package com.containerdepot.metcon.service.dtos;
+package com.containerdepot.metcon.service.dtos.imports;
 
 import jakarta.validation.constraints.*;
 
