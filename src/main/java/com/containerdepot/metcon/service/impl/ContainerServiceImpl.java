@@ -35,11 +35,12 @@ public class ContainerServiceImpl implements ContainerService {
         }
         String company = data.getOwner();
         Optional<Company> byNameEn = this.companyRepository.findByNameEn(company);
-        if (byNameEn.isEmpty()){
+        if (byNameEn.isEmpty()) {
             return false;
         }
         Container container = this.modelMapper.map(data, Container.class);
         container.setOwner(byNameEn.get());
+        container.setDamaged(data.isDamaged());/*TODO*/
         this.containerRepository.save(container);
         return true;
     }
@@ -51,5 +52,37 @@ public class ContainerServiceImpl implements ContainerService {
     @Override
     public List<Container> findAllByCompanyId(long id) {
         return this.containerRepository.findAllByOwnerId(id);
+    }
+
+    @Override
+    public Optional<Container> findContainerById(Long id) {
+        return this.containerRepository.findById(id);
+    }
+
+    @Override
+    public boolean edit(ContainerAddDto data) {
+        Optional<Container> optionalContainer = this.containerRepository.findById(data.getId());
+        Optional<Company> optionalCompany = this.companyRepository.findByNameEn(data.getOwner());
+        if (optionalContainer.isEmpty() || optionalCompany.isEmpty()) {
+            return false;
+        }
+        Container container = optionalContainer.get();
+        container.setNumber(data.getNumber());
+        container.setType(data.getType());
+        container.setDamaged(data.isDamaged());
+        container.setOwner(optionalCompany.get());
+        container.setReceived(data.getReceived());
+        container.setReceivedByTruck(data.getReceivedByTruck());
+        container.setReleased(data.getReleased());
+        container.setReleasedToTruck(data.getReleasedToTruck());
+        this.containerRepository.save(container);
+        return true;
+    }
+
+    @Override
+    public void delete(Long id) {
+        if (this.containerRepository.existsById(id)) {
+            this.containerRepository.deleteById(id);
+        } /*TODO exception handling*/
     }
 }

@@ -8,13 +8,11 @@ import com.containerdepot.metcon.service.CompanyService;
 import com.containerdepot.metcon.service.ContainerService;
 import com.containerdepot.metcon.service.dtos.imports.ContainerAddDto;
 import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -25,11 +23,13 @@ public class ContainerController {
     private final ContainerService containerService;
     private final CompanyService companyService;
     private final CompanyRepository companyRepository;
+    private final ModelMapper modelMapper;
 
-    public ContainerController(ContainerService containerService, CompanyService companyService, CompanyRepository companyRepository) {
+    public ContainerController(ContainerService containerService, CompanyService companyService, CompanyRepository companyRepository, ModelMapper modelMapper) {
         this.containerService = containerService;
         this.companyService = companyService;
         this.companyRepository = companyRepository;
+        this.modelMapper = modelMapper;
     }
 
     @ModelAttribute("containerAddData")
@@ -93,5 +93,47 @@ public class ContainerController {
         List<Container> containersByCompanyId = this.containerService.findAllByCompanyId(optionalCompany.get().getId());
         model.addAttribute("companyContainers", containersByCompanyId);
         return "containers-company";
+    }
+    @GetMapping("/containers/edit/{id}")
+    public String viewEditContainer(@PathVariable("id") Long id, Model model) {
+        Optional<Container> optionalContainer = this.containerService.findContainerById(id);
+        if (optionalContainer.isEmpty()) {
+            return "redirect:/containers/all";/*TODO exception handling*/
+        }
+        ContainerAddDto containerAddDto = this.modelMapper.map(optionalContainer.get(), ContainerAddDto.class);
+        containerAddDto.setId(id);
+        containerAddDto.setOwner(optionalContainer.get().getOwner().getNameEn());
+        model.addAttribute("containerAddData", containerAddDto);
+
+        return "containers-edit";
+    }
+    @PostMapping("/containers/edit/{id}")
+    public String doEditContainer(@Valid ContainerAddDto data,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("containerAddData", data);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.containerAddData",
+                    bindingResult);
+
+            return "redirect:/containers/edit/{id}";
+        }
+
+        boolean success = this.containerService.edit(data);
+        if (!success) {
+            return "redirect:/containers/edit/{id}";
+        }
+
+        return "redirect:/containers/all";
+    }
+    @DeleteMapping("/containers/delete/{id}")
+    public String deleteContainer(@PathVariable("id") Long id) {
+        try {
+            this.containerService.delete(id);
+        } catch (Exception exception) {
+            throw new IllegalStateException("Cannot delete request with associated task! Please delete task first!");
+        }
+
+        return "redirect:/containers/all";
     }
 }

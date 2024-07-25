@@ -4,6 +4,7 @@ import com.containerdepot.metcon.model.entities.Container;
 import com.containerdepot.metcon.service.dtos.imports.ContainerAddDto;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface ContainerService {
@@ -12,4 +13,10 @@ public interface ContainerService {
     public List<Container> getAllOrderedByReceivedDesc();
 
     List<Container> findAllByCompanyId(long id);/*TODO return list of ContainerDto*/
+
+    Optional<Container> findContainerById(Long id);
+
+    boolean edit(ContainerAddDto data);
+
+    void delete(Long id);
 }

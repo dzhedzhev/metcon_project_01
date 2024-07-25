@@ -39,8 +39,8 @@
                         </td>
                         <td style="border-left: none">
                             <form th:method="delete"
-                                  th:action="@{/containers/requests/delete/{id}(id=${request.id})}" class="inline-block">
-                                <button class="btn btn-danger btn-sm mb-1" th:href="@{/containers/add}" type="submit">Delete</button>
+                                  th:action="@{/containers/requests/delete/{id}(id=${request.id})}">
+                                <button class="btn btn-danger btn-sm mb-1" type="submit">Delete</button>
                             </form>
                         </td>
                     </tr>

@@ -63,7 +63,11 @@ public class RequestController { /*TODO transform to REST controller*/
     public String viewRequestsAll() {return "requests-all";}
     @DeleteMapping("/requests/delete/{id}")
     public String deleteRequest(@PathVariable("id") Long id) {
-        this.requestService.delete(id);
+        try {
+            this.requestService.delete(id);
+        } catch (Exception exception) {
+           throw new IllegalStateException("Cannot delete request with associated task! Please delete task first!");
+        }
 
         return "redirect:/containers/requests/all";
     }

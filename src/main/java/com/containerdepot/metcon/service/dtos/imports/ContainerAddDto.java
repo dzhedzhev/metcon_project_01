@@ -1,15 +1,17 @@
 package com.containerdepot.metcon.service.dtos.imports;
 
+import com.containerdepot.metcon.model.enums.ContainerIsoType;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
 
 public class ContainerAddDto {
+    private long id;
     @NotBlank(message = "Container number must not be empty!")
     @Pattern(regexp = "([a-zA-Z]{3})([UJZujz])(\\d{6})(\\d)", message = "Container number is not in correct format!")
     private String number;
-    @NotBlank(message = "Container type must be selected!")
-    private String type;
+    @NotNull(message = "Container type must be selected!")
+    private ContainerIsoType type;
     private boolean isDamaged;
     @NotBlank(message = "Company must be selected!")
     private String owner;
@@ -18,11 +20,19 @@ public class ContainerAddDto {
     private LocalDateTime received;
     @NotBlank(message = "Truck number must not be empty!")
     private String receivedByTruck;
-    @FutureOrPresent
-    private LocalDateTime released;
+    @PastOrPresent
+    private LocalDateTime released;/*TODO custom validator checks for release after receiving*/
     private String releasedToTruck;
 
     public ContainerAddDto() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNumber() {
@@ -33,11 +43,11 @@ public class ContainerAddDto {
         this.number = number;
     }
 
-    public String getType() {
+    public ContainerIsoType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ContainerIsoType type) {
         this.type = type;
     }
 

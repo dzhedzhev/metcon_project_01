@@ -81,4 +81,14 @@ public class CompanyController {
         }
         return "redirect:/companies/all";
     }
+    @DeleteMapping("/delete/{id}")
+    public String deleteRequest(@PathVariable("id") Long id) {
+        try {
+            this.companyService.delete(id);
+        } catch (Exception exception) {
+            throw new IllegalStateException("Cannot delete company!");/*TODO exception handling*/
+        }
+
+        return "redirect:/companies/all";
+    }
 }

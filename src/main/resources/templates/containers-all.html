@@ -24,7 +24,8 @@
                         <th>Received By Truck</th>
                         <th>Date/time released</th>
                         <th>Released to truck</th>
-                        <th>Action</th>
+                        <th style="border-right: none">Action</th>
+                        <th style="border-left: none"></th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
@@ -38,9 +39,14 @@
                         <td th:value="${container.receivedByTruck}" th:text="${container.receivedByTruck}">Data 6</td>
                         <td th:value="${container.released}" th:text="${container.released}">Data 7</td>
                         <td th:value="${container.releasedToTruck}" th:text="${container.releasedToTruck}">Data 8</td>
-                        <td style="white-space: nowrap">
-                            <a class="btn btn-primary btn-sm mb-1" th:href="@{/containers/add}" role="button">Edit</a>
-                            <a class="btn btn-danger btn-sm mb-1" th:href="@{/containers/add}" role="button">Delete</a>
+                        <td style="border-right: none">
+                            <a class="btn btn-primary btn-sm mb-1" th:href="@{/containers/edit/{id}(id=${container.id})}" role="button">Edit</a>
+                        </td>
+                        <td style="border-left: none">
+                            <form th:method="delete"
+                                  th:action="@{/containers/delete/{id}(id=${container.id})}">
+                                <button class="btn btn-danger btn-sm mb-1" type="submit">Delete</button>
+                            </form>
                         </td>
                     </tr>
                     <!-- Add more rows as needed -->
