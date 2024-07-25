@@ -29,12 +29,14 @@
                         <li class="list-group-item" th:value="${company.phoneNumber}" th:text="${company.phoneNumber}">A third item</li>
                     </ul>
                     <div class="card-body">
-                        <a th:href="@{/containers/company(id=${company.id})}" class="btn btn-warning">Containers</a>
-                        <a class="btn btn-primary" th:href="@{/companies/edit/{id}(id=${company.id})}">Edit</a>
-                        <form th:method="delete"
-                              th:action="@{/companies/delete/{id}(id=${company.id})}">
-                            <button class="btn btn-danger btn-sm mb-1" type="submit">Delete</button>
-                        </form>
+                        <div class="btn-group" role="group">
+                            <form th:method="delete"
+                            th:action="@{/companies/delete/{id}(id=${company.id})}">
+                                <a type="button" class="btn btn-warning" th:href="@{/containers/company(id=${company.id})}">Containers</a>
+                                <a type="button" class="btn btn-primary" th:href="@{/companies/edit/{id}(id=${company.id})}">Edit</a>
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
