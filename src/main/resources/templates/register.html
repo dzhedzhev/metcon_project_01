@@ -11,9 +11,9 @@
     <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h2 class="text-center mb-4">Sign Up</h2>
+                <h2 class="text-center mb-4">Register</h2>
                 <form th:method="post"
-                      th:action="@{/sign-up}"
+                      th:action="@{/register}"
                       th:object="${signUpData}"
                 >
                     <div class="form-group">
@@ -114,7 +114,7 @@
                             <label class="form-check-label" for="inlineCheckbox1" th:text="${role}">1</label>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
                 </form>
             </div>
         </div>

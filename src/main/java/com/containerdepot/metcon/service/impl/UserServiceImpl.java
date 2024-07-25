@@ -7,10 +7,12 @@ import com.containerdepot.metcon.model.entities.Company;
 import com.containerdepot.metcon.model.entities.UserEntity;
 import com.containerdepot.metcon.service.UserService;
 import com.containerdepot.metcon.service.dtos.imports.SignUpDto;
+import com.containerdepot.metcon.service.dtos.imports.UserDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -60,5 +62,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public void editUser() {
 
+    }
+
+    @Override
+    public List<UserDto> getAllUsers() {
+        return this.userRepository.findAll().stream().map(userEntity -> {
+            UserDto mapped = this.modelMapper.map(userEntity, UserDto.class);
+            mapped.setCompany(userEntity.getCompany().getNameEn());
+            mapped.setRoles(userEntity.getRoles().stream().map(role -> role.getRole().toString()).collect(Collectors.joining(", ")));
+            return mapped;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public void delete(Long id) {
+        this.userRepository.deleteById(id);
     }
 }

@@ -4,13 +4,12 @@ import com.containerdepot.metcon.model.enums.UserRole;
 import com.containerdepot.metcon.service.CompanyService;
 import com.containerdepot.metcon.service.UserService;
 import com.containerdepot.metcon.service.dtos.imports.SignUpDto;
+import com.containerdepot.metcon.service.dtos.imports.UserDto;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -31,6 +30,10 @@ public class UserController {
     public List<String> allCompaniesNames() {
         return this.companyService.allCompaniesNames();
     }
+    @ModelAttribute("allUsers")
+    public List<UserDto> allUsers() {
+        return this.userService.getAllUsers();
+    }
     @ModelAttribute("signUpData")
     public SignUpDto signUpDto() {return new SignUpDto();}
     @ModelAttribute("allRoles")
@@ -42,11 +45,15 @@ public class UserController {
     public String viewLogin() {
         return "/login";
     }
-    @GetMapping("/sign-up")
+    @GetMapping("/register")
     public String viewSignUp() {
-        return "/sign-up";
+        return "register";
     }
-    @PostMapping("/sign-up")
+    @GetMapping("/users")
+    public String viewAllUsers() {
+        return "users-all";
+    }
+    @PostMapping("/register")
     public String doSignUp(@Valid SignUpDto data,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes) {
@@ -55,15 +62,20 @@ public class UserController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.signUpData",
                     bindingResult);
 
-            return "redirect:/sign-up";
+            return "redirect:/register";
         }
 
         boolean success = this.userService.signUp(data);
         if(!success) {
-            return "redirect:/sign-up";
+            return "redirect:/register";
         }
 
         return "redirect:/login";
+    }
+    @DeleteMapping("/users/delete/{id}")
+    public String deleteContainer(@PathVariable("id") Long id) {
+        this.userService.delete(id);
+        return "redirect:/users";
     }
 
 }
