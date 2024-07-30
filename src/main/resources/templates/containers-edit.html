@@ -37,12 +37,13 @@
                     <label for="type" class="form-label">Container type</label>
                     <select class="form-select" id="type" name="type" required
                     >
-                        <option th:value="*{type}" th:text="*{type}">Select type</option>
+<!--                        <option th:value="*{type}" th:text="*{type}">Select type</option>-->
                         <option
                                 th:each="type: ${allContainerTypes}"
+                                th:selected="${type} == ${containerAddData.type}"
                                 th:value="${type}"
                                 th:text="${type}">
-                            Container type
+                           Container type
                         </option>
                     </select>
 <!--                    <small class="invalid-feedback text-danger">-->
@@ -52,8 +53,8 @@
 <!--                    </small>-->
                 </div>
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="isDamaged" name="isDamaged" th:value="*{isDamaged()}">
-                    <label class="form-check-label" for="isDamaged">Damaged</label>
+                    <input class="form-check-input" type="checkbox" role="switch" id="damaged" name="damaged" value="true" th:checked="*{isDamaged()}">
+                    <label class="form-check-label" for="damaged">Damaged</label>
                 </div>
                 <div class="mb-3">
                     <label for="owner">Company</label>

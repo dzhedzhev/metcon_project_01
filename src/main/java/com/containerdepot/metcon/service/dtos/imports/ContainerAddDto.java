@@ -12,7 +12,7 @@ public class ContainerAddDto {
     private String number;
     @NotNull(message = "Container type must be selected!")
     private ContainerIsoType type;
-    private boolean isDamaged;
+    private boolean damaged;
     @NotBlank(message = "Company must be selected!")
     private String owner;
     @PastOrPresent(message = "Received date/time must be in the past!")
@@ -52,11 +52,11 @@ public class ContainerAddDto {
     }
 
     public boolean isDamaged() {
-        return isDamaged;
+        return damaged;
     }
 
     public void setDamaged(boolean damaged) {
-        isDamaged = damaged;
+        this.damaged = damaged;
     }
 
     public String getOwner() {

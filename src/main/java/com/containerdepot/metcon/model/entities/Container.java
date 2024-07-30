@@ -44,7 +44,7 @@ public class Container extends BaseEntity {
         this.type = type;
     }
 
-    public boolean isDamaged() {
+    public boolean getDamaged() {
         return isDamaged;
     }
 
