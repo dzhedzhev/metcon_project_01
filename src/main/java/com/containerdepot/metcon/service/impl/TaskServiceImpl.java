@@ -9,7 +9,11 @@ import com.containerdepot.metcon.model.entities.Task;
 import com.containerdepot.metcon.service.TaskService;
 import com.containerdepot.metcon.service.dtos.imports.TaskAddDto;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,16 +21,19 @@ import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl implements TaskService {
+    private final Logger LOGGER = LoggerFactory.getLogger(TaskServiceImpl.class);
     private final TaskRepository taskRepository;
     private final ModelMapper modelMapper;
     private final CompanyRepository companyRepository;
     private final RequestRepository requestRepository;
+    private final RestClient taskRestClient;
 
-    public TaskServiceImpl(TaskRepository taskRepository, ModelMapper modelMapper, CompanyRepository companyRepository, RequestRepository requestRepository) {
+    public TaskServiceImpl(TaskRepository taskRepository, ModelMapper modelMapper, CompanyRepository companyRepository, RequestRepository requestRepository, RestClient taskRestClient) {
         this.taskRepository = taskRepository;
         this.modelMapper = modelMapper;
         this.companyRepository = companyRepository;
         this.requestRepository = requestRepository;
+        this.taskRestClient = taskRestClient;
     }
 
     @Override
@@ -48,6 +55,14 @@ public class TaskServiceImpl implements TaskService {
         task.setRequest(optionalRequest.get());
         this.taskRepository.save(task);
         return true;
+    }
+
+    @Override
+    public void addTask(TaskAddDto data) {
+        LOGGER.debug("Adding task...");
+        taskRestClient.post().uri("http://localhost:8081/tasks")
+                .body(data)
+                .retrieve();
     }
 
     @Override

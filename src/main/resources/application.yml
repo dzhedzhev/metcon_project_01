@@ -24,6 +24,11 @@ spring:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true
+
+tasks:
+  api:
+    baseUrl: "http://localhost:8081/tasks"
+
 #Cloudinary Properties
 #cloudinary:
   #api-key: 

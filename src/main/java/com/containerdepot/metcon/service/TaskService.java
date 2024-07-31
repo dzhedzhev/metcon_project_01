@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface TaskService {
     boolean add(TaskAddDto data);
+
+    void addTask(TaskAddDto data);
     List<TaskAddDto> getAllTasks();
 }

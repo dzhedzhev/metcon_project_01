@@ -67,10 +67,11 @@ public class TaskController {
                     bindingResult);
             return "redirect:/containers/tasks/add";
         }
-        boolean success = this.taskService.add(data);
-        if (!success) {
-            return "redirect:/containers/tasks/add";
-        }
+//        boolean success = this.taskService.add(data);
+//        if (!success) {
+//            return "redirect:/containers/tasks/add";
+//        }
+        taskService.addTask(data);
         return "redirect:/home";
     }
     @GetMapping("/all")
