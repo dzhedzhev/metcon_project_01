@@ -7,6 +7,7 @@ import com.containerdepot.metcon.model.enums.RequestEnum;
 import java.time.LocalDateTime;
 
 public class TaskAddDto {
+    private long id;
     private String type;
     private String company;
     private String containerNumber;
@@ -17,6 +18,14 @@ public class TaskAddDto {
     private long requestId;
 
     public TaskAddDto() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getType() {

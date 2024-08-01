@@ -31,9 +31,14 @@
                         <td th:value="${task.containerType}" th:text="${task.containerType}">Data 3</td>
                         <td th:value="${task.truck}" th:text="${task.truck}">Data 4</td>
                         <td th:value="${task.dateTime}" th:text="${task.dateTime}">Data 5</td>
-                        <td style="white-space: nowrap">
-                            <a class="btn btn-primary btn-sm mb-1" th:href="@{/containers/tasks/edit}" role="button">Edit</a>
-                            <a class="btn btn-danger btn-sm mb-1" th:href="@{/containers/tasks/delete}" role="button">Delete</a>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <form th:method="delete"
+                                      th:action="@{/containers/tasks/delete/{id}(id=${task.id})}">
+                                    <a class="btn btn-primary btn-sm" th:href="@{/containers/tasks/edit/{id}(id=${task.id})}" role="button">Edit</a>
+                                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     <!-- Add more rows as needed -->

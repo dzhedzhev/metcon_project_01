@@ -3,8 +3,10 @@ package com.containerdepot.metcon.controller;
 import com.containerdepot.metcon.model.entities.Request;
 import com.containerdepot.metcon.service.RequestService;
 import com.containerdepot.metcon.service.TaskService;
+import com.containerdepot.metcon.service.dtos.imports.RequestAddDto;
 import com.containerdepot.metcon.service.dtos.imports.TaskAddDto;
 import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,10 +21,12 @@ import java.util.Optional;
 public class TaskController {
     private final TaskService taskService;
     private final RequestService requestService;
+    private final ModelMapper modelMapper;
 
-    public TaskController(TaskService taskService, RequestService requestService) {
+    public TaskController(TaskService taskService, RequestService requestService, ModelMapper modelMapper) {
         this.taskService = taskService;
         this.requestService = requestService;
+        this.modelMapper = modelMapper;
     }
 
     @ModelAttribute("taskAddData")
@@ -77,5 +81,32 @@ public class TaskController {
     @GetMapping("/all")
     public String viewAllTasks() {
         return "tasks-all";
+    }
+    @GetMapping("/edit/{id}")
+    public String viewEditTask(@PathVariable("id") Long id, Model model) {
+        TaskAddDto taskById = this.taskService.getTaskById(id);
+        model.addAttribute("taskDto", taskById);
+        return "task-edit";
+    }
+    @PostMapping("/edit/{id}")
+    public String doEditRequest(@PathVariable("id") Long id, @Valid TaskAddDto data,
+                                BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("taskEditData", data);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.taskEditData",
+                    bindingResult);
+            return "redirect:/containers/tasks/edit/{id}";
+        }
+//        boolean success = this.requestService.edit(id, data);
+//        if (!success) {
+//            return "redirect:/containers/requests/all"; /*TODO error handling*/
+//        }
+        taskService.editTask(data);
+        return "redirect:/containers/tasks/all";
+    }
+    @DeleteMapping("/delete/{id}")
+    public String deleteTask(@PathVariable("id") Long id) {
+        this.taskService.delete(id);
+        return "redirect:/containers/tasks/all";
     }
 }
