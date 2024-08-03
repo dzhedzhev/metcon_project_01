@@ -72,10 +72,14 @@ public class RequestServiceImpl implements RequestService {
             return false;
         }
         Request request = optionalRequest.get();
-        request.setType(data.getType());
-        request.setContainerNumber(data.getContainerNumber());
-        request.setContainerType(data.getContainerType());
+//        request.setType(data.getType());
+//        request.setContainerNumber(data.getContainerNumber());
+//        request.setContainerType(data.getContainerType());
         request.setTruck(data.getTruck());
+        /*
+        Only the truck should be editable. New request would be required to change the rest of the fields
+        and the old one should be deleted!
+        */
         this.requestRepository.save(request);
         return true;
     }

@@ -22,15 +22,9 @@
                 </div>
                 <div class="col-md-3">
                     <label for="type" class="form-label">Request type</label>
-                    <select class="form-select" id="type" name="type" required>
-                        <option th:value="${requestDto.type}" th:text="${requestDto.type}">Select type</option>
-                        <option
-                                th:each="type: ${allRequestTypes}"
-                                th:value="${type}"
-                                th:text="${type}">
-                            Container type
-                        </option>
-                    </select>
+                    <input readonly type="text" class="form-control" id="type" name="type"
+                           th:value="*{type}"
+                    >
 <!--                    <small class="invalid-feedback text-danger">-->
 <!--                        <ul>-->
 <!--                            <li th:each="err : ${#fields.errors('type')}" th:text="${err}"></li>-->
@@ -39,23 +33,21 @@
                 </div>
                 <div class="col-md-4">
                     <label for="containerNumber" class="form-label">Container No.</label>
-                    <input type="text" class="form-control" id="containerNumber" name="containerNumber" th:value="${requestDto.containerNumber}">
+                    <input readonly type="text" class="form-control" id="containerNumber" name="containerNumber"
+                           th:value="*{containerNumber}"
+                    >
                 </div>
                 <div class="col-md-4">
                     <label for="containerType" class="form-label">Container type</label>
-                    <select class="form-select" id="containerType" name="containerType" required>
-                        <option th:value="${requestDto.containerType}" th:text="${requestDto.containerType}">Select type</option>
-                        <option
-                                th:each="type: ${allContainerTypes}"
-                                th:value="${type}"
-                                th:text="${type}">
-                            Container type
-                        </option>
-                    </select>
+                    <input readonly type="text" class="form-control" id="containerType" name="containerType"
+                           th:value="*{containerType}"
+                    >
                 </div>
                 <div class="col-md-4">
                     <label for="truck" class="form-label">Truck No.</label>
-                    <input type="text" class="form-control" id="truck" name="truck" th:value="${requestDto.truck}">
+                    <input type="text" class="form-control" id="truck" name="truck"
+                           th:value="*{truck}"
+                    >
                 </div>
                 <button type="submit" class="btn btn-primary">Edit request</button>
             </form>

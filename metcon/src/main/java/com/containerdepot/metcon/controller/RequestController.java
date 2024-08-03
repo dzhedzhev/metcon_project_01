@@ -79,7 +79,7 @@ public class RequestController { /*TODO transform to REST controller*/
         }
         model.addAttribute("requestId", optionalRequest.get().getId());
         RequestAddDto requestAddDto = this.modelMapper.map(optionalRequest.get(), RequestAddDto.class);
-        model.addAttribute("requestDto", requestAddDto);
+        model.addAttribute("requestAddData", requestAddDto);
 
         return "request-edit";
     }
