@@ -1,26 +1,20 @@
 package com.containerdepot.metcon.service.dtos.imports;
 
-import com.containerdepot.metcon.validation.UniqueCompanyEmail;
-import com.containerdepot.metcon.validation.UniqueCompanyName;
-import com.containerdepot.metcon.validation.UniqueCompanyPhone;
-import com.containerdepot.metcon.validation.UniqueVatNumber;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-public class CompanyAddDto {
+public class CompanyEditDto {
     private long id;
-    @NotBlank(message = "Name must not be empty!")
+    @NotBlank(message = "Company name must not be empty!")
     @Size(min = 2, max = 50, message = "Company name length must be between 2 and 50 symbols!")
-    @UniqueCompanyName
     private String nameEn;
-    @NotBlank(message = "Name must not be empty!")
+    @NotBlank(message = "Company name must not be empty!")
     @Size(min = 2, max = 50, message = "Company name length must be between 2 and 50 symbols!")
     private String nameBg;
     @NotBlank(message = "VAT number must not be empty!")
     @Pattern(regexp = "(^BG\\d{9,10}$)", message = "Incorrect VAT number format!")
-    @UniqueVatNumber
     private String vatNumber;
     @NotBlank(message = "City name must not be empty!")
     @Size(min = 2, max = 50, message = "City name length must be between 2 and 50 symbols!")
@@ -30,14 +24,12 @@ public class CompanyAddDto {
     private String address;
     @NotBlank(message = "Email must not be empty!")
     @Email(message = "Invalid e-mail format!")
-    @UniqueCompanyEmail
     private String email;
     @NotBlank(message = "Phone number must not be empty!")
     @Size(min = 8, message = "Phone number length must be at least 8 symbols!")
-    @UniqueCompanyPhone
     private String phoneNumber;/*TODO add regexp validation?*/
 
-    public CompanyAddDto() {
+    public CompanyEditDto() {
     }
 
     public long getId() {

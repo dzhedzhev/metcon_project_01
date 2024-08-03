@@ -4,6 +4,7 @@ import com.containerdepot.metcon.model.entities.Company;
 import com.containerdepot.metcon.service.CompanyService;
 import com.containerdepot.metcon.service.dtos.exports.CompanyDto;
 import com.containerdepot.metcon.service.dtos.imports.CompanyAddDto;
+import com.containerdepot.metcon.service.dtos.imports.CompanyEditDto;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,8 @@ public class CompanyController {
     public List<CompanyDto> getAllCompanies() { return this.companyService.allCompanies();}
     @ModelAttribute("companyAddData")
     public CompanyAddDto companyAddDto() {return new CompanyAddDto();}
+    @ModelAttribute("companyEditData")
+    public CompanyEditDto companyEditDto() {return new CompanyEditDto();}
     @GetMapping("/add")
     private String viewCompanyAdd() {return "company-add";}
     @PostMapping("/add")
@@ -48,7 +51,7 @@ public class CompanyController {
             return "redirect:/companies/add";
         }
 
-        return "redirect:/home";
+        return "redirect:/companies/all";
     }
     @GetMapping("/all")
     public String viewCompaniesAll() {return "companies-all";}
@@ -58,20 +61,23 @@ public class CompanyController {
         if (companyById.isEmpty()) {
             return "redirect:/companies/all";
         }
-        CompanyAddDto mappedCompanyAddDto = this.modelMapper.map(companyById.get(), CompanyAddDto.class);
-        mappedCompanyAddDto.setId(id);
-        model.addAttribute("companyAddDto", mappedCompanyAddDto);
+        if (model.containsAttribute("org.springframework.validation.BindingResult.companyEditData")) {
+            return "company-edit";
+        }
+        CompanyEditDto mappedCompanyEditDto = this.modelMapper.map(companyById.get(), CompanyEditDto.class);
+        mappedCompanyEditDto.setId(id);
+        model.addAttribute("companyEditData", mappedCompanyEditDto);
         return "company-edit";
     }
     @GetMapping("/edit")
     public String viewErrEditCompany() {return "company-edit";}
     @PostMapping("/edit/{id}")
-    public String doEditCompany(@Valid @ModelAttribute("companyAddData") CompanyAddDto data,
+    public String doEditCompany(@Valid @ModelAttribute("companyEditData") CompanyEditDto data,
                                 BindingResult bindingResult,
                                 RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("companyAddData", data);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.companyAddData",
+            redirectAttributes.addFlashAttribute("companyEditData", data);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.companyEditData",
                     bindingResult);
             return "redirect:/companies/edit/{id}";/*TODO try to fix error handling*/
         }

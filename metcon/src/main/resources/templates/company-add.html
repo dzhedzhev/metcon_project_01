@@ -24,6 +24,11 @@
                            th:errorclass="'is-invalid alert-danger'"
                            required
                     />
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('nameEn')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
                 </div>
                 <div class="mb-3">
                     <label for="nameBg" class="form-label">Name (BG)</label>
@@ -32,6 +37,11 @@
                            th:errorclass="'is-invalid alert-danger'"
                            required
                     />
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('nameBg')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="vatNumber" class="form-label">VAT number</label>
@@ -40,6 +50,11 @@
                            th:errorclass="'is-invalid alert-danger'"
                            required
                     />
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('vatNumber')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="city" class="form-label">City</label>
@@ -48,6 +63,11 @@
                            th:errorclass="'is-invalid alert-danger'"
                            required
                     />
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('city')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
                 </div>
                 <div class="mb-3">
                     <label for="address" class="form-label">Address</label>
@@ -55,7 +75,12 @@
                            th:field="*{address}"
                            th:errorclass="'is-invalid alert-danger'"
                            required
-                    ></textarea>
+                    >Address</textarea>
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('address')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="email" class="form-label">E-mail</label>
@@ -64,6 +89,11 @@
                            th:errorclass="'is-invalid alert-danger'"
                            required
                     />
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('email')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="phoneNumber" class="form-label">Phone number</label>
@@ -72,6 +102,11 @@
                            th:errorclass="'is-invalid alert-danger'"
                            required
                     />
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('phoneNumber')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

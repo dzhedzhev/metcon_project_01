@@ -5,6 +5,7 @@ import com.containerdepot.metcon.model.entities.Company;
 import com.containerdepot.metcon.service.CompanyService;
 import com.containerdepot.metcon.service.dtos.exports.CompanyDto;
 import com.containerdepot.metcon.service.dtos.imports.CompanyAddDto;
+import com.containerdepot.metcon.service.dtos.imports.CompanyEditDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +57,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public boolean edit(CompanyAddDto data) {
+    public boolean edit(CompanyEditDto data) {
         Optional<Company> companyOptional = this.companyRepository.findById(data.getId());
         if (companyOptional.isEmpty()) {
             return false;
