@@ -100,11 +100,13 @@ public class ContainerController {
         if (optionalContainer.isEmpty()) {
             return "redirect:/containers/all";/*TODO exception handling*/
         }
+        if (model.containsAttribute("org.springframework.validation.BindingResult.containerAddData")) {
+            return "containers-edit";
+        }
         ContainerAddDto containerAddDto = this.modelMapper.map(optionalContainer.get(), ContainerAddDto.class);
         containerAddDto.setId(id);
         containerAddDto.setOwner(optionalContainer.get().getOwner().getNameEn());
         model.addAttribute("containerAddData", containerAddDto);
-
         return "containers-edit";
     }
     @PostMapping("/containers/edit/{id}")
