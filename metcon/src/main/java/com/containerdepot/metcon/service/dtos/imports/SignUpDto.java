@@ -1,16 +1,20 @@
 package com.containerdepot.metcon.service.dtos.imports;
 
 import com.containerdepot.metcon.model.enums.UserRole;
+import com.containerdepot.metcon.validation.MatchingPasswords;
+import com.containerdepot.metcon.validation.UniqueEmail;
+import com.containerdepot.metcon.validation.UniqueUsername;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.Set;
-
+@MatchingPasswords
 public class SignUpDto {
     @NotBlank(message = "Username must not be empty.")
     @Size(min = 4, max = 20, message = "Username size must be between 4 and 20 symbols.")
+    @UniqueUsername
     private String username;
     @NotBlank(message = "Password must not be empty.")
     @Size(min = 8, max = 20, message = "Password size must be between 8 and 20 symbols.")
@@ -26,6 +30,7 @@ public class SignUpDto {
     private String lastName;
     @Email
     @NotBlank(message = "Email must not be empty.")
+    @UniqueEmail
     private String email;
     @NotBlank(message = "Company must not be empty.")
     private String company;

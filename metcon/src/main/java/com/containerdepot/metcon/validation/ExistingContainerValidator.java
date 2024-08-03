@@ -16,7 +16,6 @@ public class ExistingContainerValidator implements ConstraintValidator<ExistingC
         this.containerRepository = containerRepository;
     }
 
-
     @Override
     public void initialize(ExistingContainer constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
