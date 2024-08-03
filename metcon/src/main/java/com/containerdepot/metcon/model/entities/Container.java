@@ -1,13 +1,14 @@
 package com.containerdepot.metcon.model.entities;
 
 import com.containerdepot.metcon.model.enums.ContainerIsoType;
+import com.containerdepot.metcon.validation.ExistingContainer;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 @Entity
 @Table(name = "containers")
 public class Container extends BaseEntity {
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String number;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

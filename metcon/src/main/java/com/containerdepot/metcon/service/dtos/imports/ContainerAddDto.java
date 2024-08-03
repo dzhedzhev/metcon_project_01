@@ -1,6 +1,7 @@
 package com.containerdepot.metcon.service.dtos.imports;
 
 import com.containerdepot.metcon.model.enums.ContainerIsoType;
+import com.containerdepot.metcon.validation.ExistingContainer;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ public class ContainerAddDto {
     private long id;
     @NotBlank(message = "Container number must not be empty!")
     @Pattern(regexp = "([a-zA-Z]{3})([UJZujz])(\\d{6})(\\d)", message = "Container number is not in correct format!")
+    @ExistingContainer
     private String number;
     @NotNull(message = "Container type must be selected!")
     private ContainerIsoType type;

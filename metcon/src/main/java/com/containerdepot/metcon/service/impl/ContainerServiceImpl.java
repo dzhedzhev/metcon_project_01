@@ -29,7 +29,7 @@ public class ContainerServiceImpl implements ContainerService {
     @Override
     public boolean add(ContainerAddDto data) {
         Optional<Container> byNumber = this.containerRepository.findByNumber(data.getNumber());
-        if (byNumber.isPresent()) {
+        if (byNumber.isPresent() && byNumber.get().getReleased() == null) {
 //            TODO throw error?
             return false;
         }
