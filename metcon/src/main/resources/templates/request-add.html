@@ -18,7 +18,10 @@
             >
                 <div class="col-md-3">
                     <label for="type" class="form-label">Request type</label>
-                    <select class="form-select" id="type" name="type" required>
+                    <select class="form-select" id="type" name="type"
+                            th:field="*{type}"
+                            required
+                    >
                         <option value="">Select type</option>
                         <option
                                 th:each="type: ${allRequestTypes}"
@@ -27,19 +30,30 @@
                             Container type
                         </option>
                     </select>
-<!--                    <small class="invalid-feedback text-danger">-->
-<!--                        <ul>-->
-<!--                            <li th:each="err : ${#fields.errors('type')}" th:text="${err}"></li>-->
-<!--                        </ul>-->
-<!--                    </small> TODO show valdations to FE plus existing request validation!-->
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('type')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
                 </div>
                 <div class="col-md-4">
                     <label for="containerNumber" class="form-label">Container No.</label>
-                    <input type="text" class="form-control" id="containerNumber" name="containerNumber">
+                    <input type="text" class="form-control" id="containerNumber" name="containerNumber"
+                           th:field="*{containerNumber}"
+                           th:errorclass="'is-invalid alert-danger'"
+                    >
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('containerNumber')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
                 </div>
                 <div class="col-md-4">
                     <label for="containerType" class="form-label">Container type</label>
-                    <select class="form-select" id="containerType" name="containerType" required>
+                    <select class="form-select" id="containerType" name="containerType"
+                            th:field="*{containerType}"
+                            required
+                    >
                         <option value="">Select type</option>
                         <option
                                 th:each="type: ${allContainerTypes}"
@@ -48,15 +62,17 @@
                             Container type
                         </option>
                     </select>
-<!--                    <small class="invalid-feedback text-danger">-->
-<!--                        <ul>-->
-<!--                            <li th:each="err : ${#fields.errors('type')}" th:text="${err}"></li>-->
-<!--                        </ul>-->
-<!--                    </small>-->
+                    <small class="invalid-feedback text-danger">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('containerType')}" th:text="${err}"></li>
+                        </ul>
+                    </small>
                 </div>
                 <div class="col-md-4">
                     <label for="truck" class="form-label">Truck No.</label>
-                    <input type="text" class="form-control" id="truck" name="truck">
+                    <input type="text" class="form-control" id="truck" name="truck"
+                           th:field="*{truck}"
+                    >
                 </div>
                 <button type="submit" class="btn btn-primary">Add request</button>
             </form>
