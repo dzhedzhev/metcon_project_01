@@ -63,13 +63,8 @@ public class TaskServiceImpl implements TaskService {
             return false;
         }
         Task task = optionalTask.get();
-        task.setType(data.type());
-        task.setCompany(data.company());
-        task.setContainerNumber(data.containerNumber());
-        task.setContainerType(data.containerType());
         task.setTruck(data.truck());
         task.setDateTime(data.dateTime());
-        task.setRequestId(data.requestId());
         this.taskRepository.save(task);
         return true;
     }
