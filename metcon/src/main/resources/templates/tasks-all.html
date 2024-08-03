@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="fragments/commons::head"></head>
+<body>
+    <!-- Navbar -->
+    <header th:replace="fragments/commons::header"></header>
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Tasks</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead class="thead-primary">
+                    <tr>
+                        <th>Type</th>
+                        <th>Company</th>
+                        <th>Container No.</th>
+                        <th>Container type</th>
+                        <th>Truck</th>
+                        <th>Date and time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr th:each="task :${allTasks}">
+                        <td th:value="${task.type}" th:text="${task.type}">1</td>
+                        <td th:value="${task.company}" th:text="${task.company}">Data 1</td>
+                        <td th:value="${task.containerNumber}" th:text="${task.containerNumber}">Data 2</td>
+                        <td th:value="${task.containerType}" th:text="${task.containerType}">Data 3</td>
+                        <td th:value="${task.truck}" th:text="${task.truck}">Data 4</td>
+                        <td th:value="${task.dateTime}" th:text="${task.dateTime}">Data 5</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <form th:method="delete"
+                                      th:action="@{/containers/tasks/delete/{id}(id=${task.id})}">
+                                    <a class="btn btn-primary btn-sm" th:href="@{/containers/tasks/edit/{id}(id=${task.id})}" role="button">Edit</a>
+                                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer th:replace="fragments/commons::footer"></footer>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script th:replace="fragments/commons::script"></script>
+</body>
+</html>

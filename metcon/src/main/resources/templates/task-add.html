@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="fragments/commons::head"></head>
+<body>
+<!-- Navbar -->
+<header th:replace="fragments/commons::header"></header>
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4">Add Task</h2>
+            <form class="row g-3"
+                  th:method="post"
+                  th:action="@{/containers/tasks/add}"
+                  th:object="${taskAddDto}"
+            >
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="type" class="form-label">Request type</label>
+                        <input readonly type="text" class="form-control" id="type" name="type"
+                               th:value="${taskAddDto.type}"
+                               th:field="*{type}"
+                        >
+                    </div>
+                    <div class="col-md-4">
+                        <label for="company" class="form-label">Company</label>
+                        <input readonly type="text" class="form-control" id="company" name="company"
+                               th:value="${taskAddDto.company}"
+                               th:field="*{company}"
+                        >
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="containerNumber" class="form-label">Container No.</label>
+                        <input readonly type="text" class="form-control" id="containerNumber" name="containerNumber"
+                               th:value="${taskAddDto.containerNumber}"
+                               th:field="*{containerNumber}"
+                        >
+                    </div>
+                    <div class="col-md-4">
+                        <label for="containerType" class="form-label">Container type</label>
+                        <input readonly type="text" class="form-control" id="containerType" name="containerType"
+                               th:value="${taskAddDto.containerType}"
+                               th:field="*{containerType}"
+                        >
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="truck" class="form-label">Truck No.</label>
+                        <input type="text" class="form-control" id="truck" name="truck"
+                               th:value="${taskAddDto.truck}"
+                               th:field="*{truck}"
+                        >
+                    </div>
+                    <div class="col-md-4">
+                        <label for="dateTime" class="form-label">Container released</label>
+                        <input type="datetime-local" class="form-control" id="dateTime" name="dateTime"
+                               th:field="*{dateTime}"
+                        >
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="requestId" class="form-label">Request ID.</label>
+                        <input readonly type="text" class="form-control-plaintext" id="requestId" name="requestId"
+                               th:value="${taskAddDto.requestId}"
+                               th:field="*{requestId}"
+                        >
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Add task</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<footer th:replace="fragments/commons::footer"></footer>
+
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script th:replace="fragments/commons::script"></script>
+</body>
+</html>

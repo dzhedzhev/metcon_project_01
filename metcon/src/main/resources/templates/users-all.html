@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="fragments/commons::head"></head>
+<body>
+    <!-- Navbar -->
+    <header th:replace="fragments/commons::header"></header>
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Users</h2>
+        <a class="btn btn-primary btn-sm mb-1" th:href="@{/add}" role="button">Register user</a>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead class="thead-primary">
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>E-mail</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Company</th>
+                        <th>Roles</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr th:each="user : ${allUsers}">
+                        <td th:value="${user.id}" th:text="${user.id}">1</td>
+                        <td th:value="${user.username}" th:text="${user.username}">Data 1</td>
+                        <td th:value="${user.email}" th:text="${user.email}">Data 2</td>
+                        <td th:value="${user.firstName}" th:text="${user.firstName}">Data 3</td>
+                        <td th:value="${user.lastName}" th:text="${user.lastName}">Data 4</td>
+                        <td th:value="${user.company}" th:text="${user.company}">Data 5</td>
+                        <td th:value="${user.roles}" th:text="${user.roles}">Data 5</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <form th:method="delete"
+                                      th:action="@{/users/delete/{id}(id=${user.id})}">
+                                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer th:replace="fragments/commons::footer"></footer>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script th:replace="fragments/commons::script"></script>
+</body>
+</html>

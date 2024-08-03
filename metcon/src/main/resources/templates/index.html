@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="fragments/commons::head"></head>
+<body>
+    <!-- Navbar -->
+    <header th:replace="fragments/commons::header"></header>
+
+    <!-- Hero Section -->
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Welcome to METCON Depot<span th:text="${welcomeMessage}"></span>!</h1>
+        <p class="lead">Within the area of 18 000 sq. m and a capacity of more than 1 500 TEUs, the depot hub is an essential part of the container supply chain. We are offering full scope of storage and supporting services for the carrier’s equipment.
+            24 hours live security and Security system including video surveillance (CCTV). Controlled access for persons and vehicles.</p>
+        <a class="btn btn-primary btn-lg" sec:authorize="!isAuthenticated()" th:href="@{/login}" role="button">Login to continue...</a>
+    </div>
+
+    <!-- Footer -->
+    <footer th:replace="fragments/commons::footer"></footer>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script th:replace="fragments/commons::script"></script>
+</body>
+</html>

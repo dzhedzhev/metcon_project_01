@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="fragments/commons::head"></head>
+<body>
+<!-- Navbar -->
+<header th:replace="fragments/commons::header"></header>
+<!-- Add Container Manually Form -->
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Add company</h2>
+            <form class="row g-3"
+                    th:method="post"
+                    th:action="@{/companies/edit/{id}(id=*{id})}"
+                    th:object="${companyAddDto}"
+            >
+                <div class="mb-3">
+                    <label for="id" class="form-label">Company ID.</label>
+                    <input type="text" class="form-control-plaintext" id="id" name="id" th:value="*{id}"/>
+                </div>
+                <div class="mb-3">
+                    <label for="nameEn" class="form-label">Name (EN)</label>
+                    <input type="text" class="form-control" id="nameEn" name="nameEn"
+                           th:value="*{nameEn}"
+                           th:field="*{nameEn}"
+                           th:errorclass="'is-invalid alert-danger'"
+                           required
+                    />
+                </div>
+                <div class="mb-3">
+                    <label for="nameBg" class="form-label">Name (BG)</label>
+                    <input type="text" class="form-control" id="nameBg" name="nameBg"
+                           th:value="*{nameBg}"
+                           th:field="*{nameBg}"
+                           th:errorclass="'is-invalid alert-danger'"
+                           required
+                    />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="vatNumber" class="form-label">VAT number</label>
+                    <input type="text" class="form-control" id="vatNumber" name="vatNumber"
+                           th:value="*{vatNumber}"
+                           th:field="*{vatNumber}"
+                           th:errorclass="'is-invalid alert-danger'"
+                           required
+                    />
+<!--                    <small class="invalid-feedback text-danger">-->
+<!--                        <ul>-->
+<!--                            <li th:each="err : ${#fields.errors('vatNumber')}" th:text="${err}"></li>-->
+<!--                        </ul>-->
+<!--                    </small>-->
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" class="form-control" id="city" name="city"
+                           th:value="*{city}"
+                           th:field="*{city}"
+                           th:errorclass="'is-invalid alert-danger'"
+                           required
+                    />
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <textarea type="text" class="form-control" id="address" name="address"
+                           th:value="*{address}"
+                           th:field="*{address}"
+                           th:errorclass="'is-invalid alert-danger'"
+                           required
+                    ></textarea>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input type="email" class="form-control" id="email" name="email"
+                           th:value="*{email}"
+                           th:field="*{email}"
+                           th:errorclass="'is-invalid alert-danger'"
+                           required
+                    />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="phoneNumber" class="form-label">Phone number</label>
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                           th:value="*{phoneNumber}"
+                           th:field="*{phoneNumber}"
+                           th:errorclass="'is-invalid alert-danger'"
+                           required
+                    />
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer th:replace="fragments/commons::footer"></footer>
+
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script th:replace="fragments/commons::script"></script>
+</body>
+</html>

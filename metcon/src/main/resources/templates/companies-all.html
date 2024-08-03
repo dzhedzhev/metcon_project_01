@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="fragments/commons::head"></head>
+<body>
+    <!-- Navbar -->
+    <header th:replace="fragments/commons::header"></header>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">All companies</h2>
+        <a class="btn btn-primary btn-m mb-3" th:href="@{/companies/add}" role="button">Add company</a>
+    </div>
+
+    <!-- Card Grid Section -->
+    <div class="container mb-5">
+        <div class="row g-3">
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3" th:each="company : ${allCompanies}">
+                <div class="card" style="width: 17rem;">
+                    <div class="card-body">
+                        <h5 class="card-title" th:value="${company.nameEn}" th:text="${company.nameEn}">Card title</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary" th:value="${company.nameBg}" th:text="${company.nameBg}">Card subtitle</h6>
+                        <p class="card-text" th:value="${company.address}" th:text="${company.address}">Address</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" th:value="${company.city}" th:text="${company.city}">An item</li>
+                        <li class="list-group-item" th:value="${company.vatNumber}" th:text="${company.vatNumber}">A second item</li>
+                        <li class="list-group-item" th:value="${company.email}" th:text="${company.email}">A third item</li>
+                        <li class="list-group-item" th:value="${company.phoneNumber}" th:text="${company.phoneNumber}">A third item</li>
+                    </ul>
+                    <div class="card-body">
+                        <div class="btn-group" role="group">
+                            <form th:method="delete"
+                            th:action="@{/companies/delete/{id}(id=${company.id})}">
+                                <a type="button" class="btn btn-warning" th:href="@{/containers/company(id=${company.id})}">Containers</a>
+                                <a type="button" class="btn btn-primary" th:href="@{/companies/edit/{id}(id=${company.id})}">Edit</a>
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer th:replace="fragments/commons::footer"></footer>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script th:replace="fragments/commons::script"></script>
+</body>
+</html>
