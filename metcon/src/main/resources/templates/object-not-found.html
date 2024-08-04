@@ -9,7 +9,7 @@
     <header th:replace="fragments/commons::header"></header>
     <div class="jumbotron text-center vh-100">
         <h1 class="display-4">Oops...something went wrong!</h1>
-        <h1 class="display-4">Please navigate to home page... <a th:href="@{/home}" class="btn btn-primary btn-lg">Home</a></h1>
+        <h1 class="display-4" th:text="${message}"></h1>
     </div>
 
     <!-- Footer -->

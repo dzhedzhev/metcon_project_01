@@ -104,7 +104,7 @@ public class ContainerController {
     public String viewEditContainer(@PathVariable("id") Long id, Model model) {
         Optional<Container> optionalContainer = this.containerService.findContainerById(id);
         if (optionalContainer.isEmpty()) {
-            return "redirect:/containers/all";/*TODO exception handling*/
+            throw new IllegalArgumentException("No such container present!");/*TODO exception handling*/
         }
         if (model.containsAttribute("org.springframework.validation.BindingResult.containerAddData")) {
             return "containers-edit";
