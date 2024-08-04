@@ -179,5 +179,9 @@ public class UserServiceImplTest {
         Assertions.assertEquals(2, actualList.size());
         Assertions.assertEquals(test1.getCompany().getNameEn(), actualList.get(0).getCompany());
         Assertions.assertEquals(test1.getUsername(), actualList.get(0).getUsername());
+        Assertions.assertEquals(test1.getEmail(), actualList.get(0).getEmail());
+        Assertions.assertEquals("ADMIN", actualList.get(0).getRoles());
+        Assertions.assertEquals(test1.getFirstName(), actualList.get(0).getFirstName());
+        Assertions.assertEquals(test1.getLastName(), actualList.get(0).getLastName());
     }
 }
