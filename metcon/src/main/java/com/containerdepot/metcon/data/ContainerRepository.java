@@ -10,6 +10,7 @@ import java.util.Optional;
 @Repository
 public interface ContainerRepository extends JpaRepository<Container, Long> {
     Optional<Container> findByNumber(String number);
+    Optional<Container> findByNumberAndReleasedNotNull(String number);
     List<Container> findByOrderByReceivedDesc();
     List<Container> findAllByOwnerId(long id);
     boolean existsByNumber(String number);

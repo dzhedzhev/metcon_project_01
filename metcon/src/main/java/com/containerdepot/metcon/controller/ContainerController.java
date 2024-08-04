@@ -48,7 +48,7 @@ public class ContainerController {
     }
 
     @ModelAttribute("allContainers")
-    public List<Container> getAllContainers() {
+    public List<ContainerAddDto> getAllContainers() {
         return this.containerService.getAllOrderedByReceivedDesc();
     }
 
@@ -90,7 +90,7 @@ public class ContainerController {
         if (optionalCompany.isEmpty()) {
             return "redirect:/companies/all";
         }
-        List<Container> containersByCompanyId = this.containerService.findAllByCompanyId(optionalCompany.get().getId());
+        List<ContainerAddDto> containersByCompanyId = this.containerService.findAllByCompanyId(optionalCompany.get().getId());
         model.addAttribute("companyContainers", containersByCompanyId);
         return "containers-company";
     }

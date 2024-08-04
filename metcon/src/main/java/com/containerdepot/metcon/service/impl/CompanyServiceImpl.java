@@ -35,7 +35,7 @@ public class CompanyServiceImpl implements CompanyService {
         boolean existingCompany = this.companyRepository.existsByNameEnOrVatNumberOrEmailOrPhoneNumber(data.getNameEn(),
                 data.getVatNumber(), data.getEmail(), data.getPhoneNumber());
         if (existingCompany) {
-            return false;
+            throw new IllegalArgumentException("There is company with matching data registered! Please try again!");
         }
         Company mappedCompany = this.modelMapper.map(data, Company.class);
         this.companyRepository.save(mappedCompany);
@@ -60,7 +60,7 @@ public class CompanyServiceImpl implements CompanyService {
     public boolean edit(CompanyEditDto data) {
         Optional<Company> companyOptional = this.companyRepository.findById(data.getId());
         if (companyOptional.isEmpty()) {
-            return false;
+            throw new IllegalArgumentException("There is no company with specified id!");
         }
         Company company = companyOptional.get();
         company.setNameEn(data.getNameEn());
@@ -76,8 +76,9 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void delete(Long id) {
-        if (this.companyRepository.existsById(id)) {
-            this.companyRepository.deleteById(id);
-        } /*TODO exception handling*/
+        if (!this.companyRepository.existsById(id)) {
+            throw new IllegalArgumentException("There is no company with specified id!");
+        }
+        this.companyRepository.deleteById(id);
     }
 }

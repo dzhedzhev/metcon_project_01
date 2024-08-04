@@ -10,9 +10,9 @@ import java.util.Optional;
 public interface ContainerService {
     boolean add(ContainerAddDto data);
 
-    public List<Container> getAllOrderedByReceivedDesc();
+    public List<ContainerAddDto> getAllOrderedByReceivedDesc();
 
-    List<Container> findAllByCompanyId(long id);/*TODO return list of ContainerDto*/
+    List<ContainerAddDto> findAllByCompanyId(long id);/*TODO return list of ContainerDto*/
 
     Optional<Container> findContainerById(Long id);
 
