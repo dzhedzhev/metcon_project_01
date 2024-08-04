@@ -1,4 +1,4 @@
-package com.containerdepot.metcon.validation;
+package com.containerdepot.metcon.service.validation;
 
 import com.containerdepot.metcon.data.ContainerRepository;
 import com.containerdepot.metcon.data.RequestRepository;

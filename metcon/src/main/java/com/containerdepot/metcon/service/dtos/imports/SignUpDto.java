@@ -1,9 +1,9 @@
 package com.containerdepot.metcon.service.dtos.imports;
 
 import com.containerdepot.metcon.model.enums.UserRole;
-import com.containerdepot.metcon.validation.MatchingPasswords;
-import com.containerdepot.metcon.validation.UniqueEmail;
-import com.containerdepot.metcon.validation.UniqueUsername;
+import com.containerdepot.metcon.service.validation.MatchingPasswords;
+import com.containerdepot.metcon.service.validation.UniqueEmail;
+import com.containerdepot.metcon.service.validation.UniqueUsername;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

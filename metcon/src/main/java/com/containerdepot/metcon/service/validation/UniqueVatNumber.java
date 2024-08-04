@@ -1,4 +1,4 @@
-package com.containerdepot.metcon.validation;
+package com.containerdepot.metcon.service.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -10,9 +10,9 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UniqueCompanyNameValidator.class)
-public @interface UniqueCompanyName {
-    String message() default "There is registered company with this name!";
+@Constraint(validatedBy = UniqueVatNumberValidator.class)
+public @interface UniqueVatNumber {
+    String message() default "There is company registered with this VAT number!";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

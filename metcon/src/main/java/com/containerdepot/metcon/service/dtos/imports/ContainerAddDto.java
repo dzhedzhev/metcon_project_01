@@ -1,7 +1,7 @@
 package com.containerdepot.metcon.service.dtos.imports;
 
 import com.containerdepot.metcon.model.enums.ContainerIsoType;
-import com.containerdepot.metcon.validation.ExistingContainer;
+import com.containerdepot.metcon.service.validation.ExistingContainer;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;

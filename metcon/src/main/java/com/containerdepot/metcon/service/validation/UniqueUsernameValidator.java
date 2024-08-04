@@ -1,4 +1,4 @@
-package com.containerdepot.metcon.validation;
+package com.containerdepot.metcon.service.validation;
 
 import com.containerdepot.metcon.data.UserRepository;
 import jakarta.validation.ConstraintValidator;

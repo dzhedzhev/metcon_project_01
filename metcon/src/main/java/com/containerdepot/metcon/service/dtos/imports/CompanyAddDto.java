@@ -1,9 +1,9 @@
 package com.containerdepot.metcon.service.dtos.imports;
 
-import com.containerdepot.metcon.validation.UniqueCompanyEmail;
-import com.containerdepot.metcon.validation.UniqueCompanyName;
-import com.containerdepot.metcon.validation.UniqueCompanyPhone;
-import com.containerdepot.metcon.validation.UniqueVatNumber;
+import com.containerdepot.metcon.service.validation.UniqueCompanyEmail;
+import com.containerdepot.metcon.service.validation.UniqueCompanyName;
+import com.containerdepot.metcon.service.validation.UniqueCompanyPhone;
+import com.containerdepot.metcon.service.validation.UniqueVatNumber;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

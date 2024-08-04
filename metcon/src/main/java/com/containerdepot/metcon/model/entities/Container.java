@@ -1,7 +1,6 @@
 package com.containerdepot.metcon.model.entities;
 
 import com.containerdepot.metcon.model.enums.ContainerIsoType;
-import com.containerdepot.metcon.validation.ExistingContainer;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

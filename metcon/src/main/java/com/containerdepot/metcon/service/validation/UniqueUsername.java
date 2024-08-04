@@ -1,4 +1,4 @@
-package com.containerdepot.metcon.validation;
+package com.containerdepot.metcon.service.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -10,9 +10,9 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UniqueCompanyEmailValidator.class)
-public @interface UniqueCompanyEmail {
-    String message() default "There is user registered with this email!";
+@Constraint(validatedBy = UniqueUsernameValidator.class)
+public @interface UniqueUsername {
+    String message() default "This username is occupied!";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
