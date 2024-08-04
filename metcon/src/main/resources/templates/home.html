@@ -3,10 +3,10 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
-<head th:replace="fragments/commons::head"></head>
+<head th:replace="~{fragments/commons::head}"></head>
 <body>
     <!-- Navbar -->
-    <header th:replace="fragments/commons::header"></header>
+    <header th:replace="~{fragments/commons::header}"></header>
 
 
     <!-- Card Grid Section -->
@@ -46,9 +46,9 @@
     </div>
 
     <!-- Footer -->
-    <footer th:replace="fragments/commons::footer"></footer>
+    <footer th:replace="~{fragments/commons::footer}"></footer>
 
     <!-- Bootstrap JS, Popper.js, and jQuery -->
-    <script th:replace="fragments/commons::script"></script>
+    <script th:replace="~{fragments/commons::script}"></script>
 </body>
 </html>

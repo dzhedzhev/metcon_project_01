@@ -16,7 +16,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                                .requestMatchers("/", "/login").permitAll()
+                                .requestMatchers("/", "/login", "/error").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
