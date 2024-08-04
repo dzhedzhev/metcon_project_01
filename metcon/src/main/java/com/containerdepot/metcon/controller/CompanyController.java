@@ -46,11 +46,7 @@ public class CompanyController {
             return "redirect:/companies/add";
         }
 
-        boolean success = this.companyService.add(data);
-        if (!success) {
-            return "redirect:/companies/add";
-        }
-
+        this.companyService.add(data);
         return "redirect:/companies/all";
     }
     @GetMapping("/all")
@@ -59,13 +55,12 @@ public class CompanyController {
     public String viewEditCompany(@PathVariable("id") Long id, Model model) {
         Optional<Company> companyById = this.companyService.findCompanyById(id);
         if (companyById.isEmpty()) {
-            return "redirect:/companies/all";
+            throw new IllegalArgumentException("There is no company with specified id!");
         }
         if (model.containsAttribute("org.springframework.validation.BindingResult.companyEditData")) {
             return "company-edit";
         }
         CompanyEditDto mappedCompanyEditDto = this.modelMapper.map(companyById.get(), CompanyEditDto.class);
-        mappedCompanyEditDto.setId(id);
         model.addAttribute("companyEditData", mappedCompanyEditDto);
         return "company-edit";
     }
@@ -81,20 +76,12 @@ public class CompanyController {
                     bindingResult);
             return "redirect:/companies/edit/{id}";/*TODO try to fix error handling*/
         }
-        boolean success = this.companyService.edit(data);
-        if (!success) {
-            return "redirect:/companies/edit/{id}"; /*TODO error handling*/
-        }
+        this.companyService.edit(data);
         return "redirect:/companies/all";
     }
     @DeleteMapping("/delete/{id}")
     public String deleteRequest(@PathVariable("id") Long id) {
-        try {
-            this.companyService.delete(id);
-        } catch (Exception exception) {
-            throw new IllegalStateException("Cannot delete company!");/*TODO exception handling*/
-        }
-
+        this.companyService.delete(id);
         return "redirect:/companies/all";
     }
 }

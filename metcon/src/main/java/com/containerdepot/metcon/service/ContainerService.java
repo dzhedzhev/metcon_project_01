@@ -9,7 +9,7 @@ import java.util.Optional;
 
 
 public interface ContainerService {
-    boolean add(ContainerAddDto data);
+    void add(ContainerAddDto data);
 
     public List<ContainerAddDto> getAllOrderedByReceivedDesc();
 
@@ -17,7 +17,7 @@ public interface ContainerService {
 
     Optional<Container> findContainerById(Long id);
 
-    boolean edit(ContainerEditDto data);
+    void edit(ContainerEditDto data);
 
     void delete(Long id);
 }

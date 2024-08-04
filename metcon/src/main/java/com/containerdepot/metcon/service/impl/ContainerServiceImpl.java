@@ -29,7 +29,7 @@ public class ContainerServiceImpl implements ContainerService {
     }
 
     @Override
-    public boolean add(ContainerAddDto data) {
+    public void add(ContainerAddDto data) {
         Optional<Container> byNumber = this.containerRepository.findByNumberAndReleasedNotNull(data.getNumber());
         if (byNumber.isPresent() && byNumber.get().getReleased() == null) {
             throw new IllegalArgumentException("Container is present at the depot!");
@@ -43,7 +43,6 @@ public class ContainerServiceImpl implements ContainerService {
         container.setOwner(byNameEn.get());
         container.setDamaged(data.getDamaged());/*TODO*/
         this.containerRepository.save(container);
-        return true;
     }
 
     public List<ContainerAddDto> getAllOrderedByReceivedDesc() {
@@ -73,23 +72,17 @@ public class ContainerServiceImpl implements ContainerService {
     }
 
     @Override
-    public boolean edit(ContainerEditDto data) {
+    public void edit(ContainerEditDto data) {
         Optional<Container> optionalContainer = this.containerRepository.findById(data.getId());
         Optional<Company> optionalCompany = this.companyRepository.findByNameEn(data.getOwner());
         if (optionalContainer.isEmpty() || optionalCompany.isEmpty()) {
             throw new IllegalArgumentException("There is no such container at the depot!");
         }
         Container container = optionalContainer.get();
-        container.setNumber(data.getNumber());
-        container.setType(data.getType());
-        container.setDamaged(data.getDamaged());
+        this.modelMapper.map(data, container);
         container.setOwner(optionalCompany.get());
-        container.setReceived(data.getReceived());
-        container.setReceivedByTruck(data.getReceivedByTruck());
-        container.setReleased(data.getReleased());
-        container.setReleasedToTruck(data.getReleasedToTruck());
+
         this.containerRepository.save(container);
-        return true;
     }
 
     @Override

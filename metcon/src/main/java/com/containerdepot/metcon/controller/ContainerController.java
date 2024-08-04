@@ -80,10 +80,7 @@ public class ContainerController {
             return "redirect:/containers/add";
         }
 
-        boolean success = this.containerService.add(data);
-        if (!success) {
-            return "redirect:/containers/add";
-        }
+        this.containerService.add(data);
 
         return "redirect:/containers/all";
     }

@@ -11,12 +11,12 @@ import java.util.Optional;
 public interface CompanyService {
     List<String> allCompaniesNames();
 
-    boolean add(CompanyAddDto data);
+    void add(CompanyAddDto data);
     List<CompanyDto> allCompanies();
 
     Optional<Company> findCompanyById(long id);
 
-    boolean edit(CompanyEditDto data);
+    void edit(CompanyEditDto data);
 
     void delete(Long id);
 }
