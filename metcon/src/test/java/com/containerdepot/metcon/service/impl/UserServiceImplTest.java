@@ -8,6 +8,7 @@ import com.containerdepot.metcon.model.entities.Role;
 import com.containerdepot.metcon.model.entities.UserEntity;
 import com.containerdepot.metcon.model.enums.UserRole;
 import com.containerdepot.metcon.service.dtos.imports.SignUpDto;
+import com.containerdepot.metcon.service.dtos.imports.UserDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -150,5 +153,31 @@ public class UserServiceImplTest {
         toTest.delete(id);
         verify(mockUserRepository, times(1)).existsById(id);
         verify(mockUserRepository, times(1)).deleteById(id);
+    }
+    @Test
+    void testGetAllUsersReturnsCorrectResult() {
+        Company company = new Company("MET", "МЕТ", "BG154689941",
+                "Varna", "Ivan Shishman 30 str.", "met-depot@metcontainer.com",
+                "+35952 150 148");
+
+        UserEntity test1 = new UserEntity("test", "test",
+                new HashSet<>(Set.of(new Role(UserRole.ADMIN))),
+                "First",
+                "Last",
+                "first@mail.com",
+                company);
+        UserEntity test2 = new UserEntity("test2", "test2",
+                new HashSet<>(Set.of(new Role(UserRole.ADMIN))),
+                "First2",
+                "Last2",
+                "second@mail.com",
+                company);
+
+        when(mockUserRepository.findAll()).thenReturn(List.of(test1, test2));
+        List<UserDto> actualList = toTest.getAllUsers();
+
+        Assertions.assertEquals(2, actualList.size());
+        Assertions.assertEquals(test1.getCompany().getNameEn(), actualList.get(0).getCompany());
+        Assertions.assertEquals(test1.getUsername(), actualList.get(0).getUsername());
     }
 }
