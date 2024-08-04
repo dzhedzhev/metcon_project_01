@@ -7,6 +7,7 @@ import com.containerdepot.metcon.model.enums.ContainerIsoType;
 import com.containerdepot.metcon.service.CompanyService;
 import com.containerdepot.metcon.service.ContainerService;
 import com.containerdepot.metcon.service.dtos.imports.ContainerAddDto;
+import com.containerdepot.metcon.service.dtos.imports.ContainerEditDto;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,11 @@ public class ContainerController {
     public ContainerAddDto containerAddDto() {
         return new ContainerAddDto();
     }
+    @ModelAttribute("containerEditData")
+    public ContainerEditDto containerEditDto() {
+        return new ContainerEditDto();
+    }
+
 
     @ModelAttribute("allCompaniesNames")
     public List<String> allCompaniesNames() {
@@ -110,32 +116,24 @@ public class ContainerController {
         return "containers-edit";
     }
     @PostMapping("/containers/edit/{id}")
-    public String doEditContainer(@Valid ContainerAddDto data,
+    public String doEditContainer(@Valid ContainerEditDto data,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("containerAddData", data);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.containerAddData",
+            redirectAttributes.addFlashAttribute("containerEditData", data);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.containerEditData",
                     bindingResult);
 
             return "redirect:/containers/edit/{id}";
         }
 
-        boolean success = this.containerService.edit(data);
-        if (!success) {
-            return "redirect:/containers/edit/{id}";
-        }
+        this.containerService.edit(data);
 
         return "redirect:/containers/all";
     }
     @DeleteMapping("/containers/delete/{id}")
     public String deleteContainer(@PathVariable("id") Long id) {
-        try {
-            this.containerService.delete(id);
-        } catch (Exception exception) {
-            throw new IllegalStateException("Cannot delete request with associated task! Please delete task first!");
-        }
-
+        this.containerService.delete(id);
         return "redirect:/containers/all";
     }
 }

@@ -53,22 +53,14 @@ public class RequestController { /*TODO transform to REST controller*/
                     bindingResult);
             return "redirect:/containers/requests/add";
         }
-        boolean success = this.requestService.add(data);
-        if (!success) {
-            return "redirect:/containers/requests/add";
-        }
-        return "redirect:/home";
+        this.requestService.add(data);
+        return "redirect:/containers/requests/all";
     }
     @GetMapping("/requests/all")
     public String viewRequestsAll() {return "requests-all";}
     @DeleteMapping("/requests/delete/{id}")
     public String deleteRequest(@PathVariable("id") Long id) {
-        try {
-            this.requestService.delete(id);
-        } catch (Exception exception) {
-           throw new IllegalStateException("Cannot delete request with associated task! Please delete task first!");
-        }
-
+        this.requestService.delete(id);
         return "redirect:/containers/requests/all";
     }
     @GetMapping("/requests/edit/{id}")

@@ -30,22 +30,21 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public boolean add(RequestAddDto data) {
+    public void add(RequestAddDto data) {
         boolean existingRequest = this.requestRepository.existsByTypeAndContainerNumber(data.getType(), data.getContainerNumber());
         if (existingRequest) {
-            return false;
+            throw new IllegalArgumentException("Request already exists!");
         }
         Authentication authentication = this.authenticationFacade.getAuthentication();
         String name = authentication.getName();
         Optional<UserEntity> byUsername = this.userRepository.findByUsername(name);
         if (byUsername.isEmpty()) {
-            return false;
+            throw new IllegalArgumentException("Can not add request! User does not exist!");
         }
         Company company = byUsername.get().getCompany();
         Request request = this.modelMapper.map(data, Request.class);
         request.setCompany(company);
         this.requestRepository.save(request);
-        return true;
     }
 
     @Override
@@ -60,9 +59,10 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void delete(Long id) {
-        if (this.requestRepository.existsById(id)) {
-            this.requestRepository.deleteById(id);
-        } /*TODO exception handling*/
+        if (!this.requestRepository.existsById(id)) {
+            throw new IllegalArgumentException("Request does not exist!");
+        }
+        this.requestRepository.deleteById(id);/*TODO exception handling*/
     }
 
     @Override

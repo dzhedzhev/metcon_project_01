@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RequestService {
-    boolean add(RequestAddDto data);
+    void add(RequestAddDto data);
 
     List<Request> findAllContainersByIdDesc();
 

@@ -2,6 +2,7 @@ package com.containerdepot.metcon.service;
 
 import com.containerdepot.metcon.model.entities.Container;
 import com.containerdepot.metcon.service.dtos.imports.ContainerAddDto;
+import com.containerdepot.metcon.service.dtos.imports.ContainerEditDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,7 @@ public interface ContainerService {
 
     Optional<Container> findContainerById(Long id);
 
-    boolean edit(ContainerAddDto data);
+    boolean edit(ContainerEditDto data);
 
     void delete(Long id);
 }

@@ -6,6 +6,7 @@ import com.containerdepot.metcon.model.entities.Company;
 import com.containerdepot.metcon.model.entities.Container;
 import com.containerdepot.metcon.service.ContainerService;
 import com.containerdepot.metcon.service.dtos.imports.ContainerAddDto;
+import com.containerdepot.metcon.service.dtos.imports.ContainerEditDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -72,7 +73,7 @@ public class ContainerServiceImpl implements ContainerService {
     }
 
     @Override
-    public boolean edit(ContainerAddDto data) {
+    public boolean edit(ContainerEditDto data) {
         Optional<Container> optionalContainer = this.containerRepository.findById(data.getId());
         Optional<Company> optionalCompany = this.companyRepository.findByNameEn(data.getOwner());
         if (optionalContainer.isEmpty() || optionalCompany.isEmpty()) {
