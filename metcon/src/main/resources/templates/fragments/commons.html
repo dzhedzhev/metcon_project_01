@@ -22,43 +22,48 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item active" sec:authorize="isAuthenticated()">
-                        <a class="nav-link" th:href="@{/home}">Home</a>
+                        <a class="nav-link" th:href="@{/home}" th:text="#{nav_bar_home}">Home</a>
                     </li>
                     <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="#{nav_bar_services}">
                             Services
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" th:href="@{/containers/all}">Storage</a></li>
-                            <li><a class="dropdown-item" th:href="@{/companies/all}">Companies</a></li>
-                            <li><a class="dropdown-item" th:href="@{/containers/requests/all}">Requests</a></li>
-                            <li><a class="dropdown-item" th:href="@{/containers/tasks/all}">Tasks</a></li>
+                            <li><a class="dropdown-item" th:href="@{/containers/all}" th:text="#{nav_bar_storage}">Storage</a></li>
+                            <li><a class="dropdown-item" th:href="@{/companies/all}" th:text="#{nav_bar_companies}">Companies</a></li>
+                            <li><a class="dropdown-item" th:href="@{/containers/requests/all}" th:text="#{nav_bar_requests}">Requests</a></li>
+                            <li><a class="dropdown-item" th:href="@{/containers/tasks/all}" th:text="#{nav_bar_tasks}">Tasks</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/about-us}">About us</a>
+                        <a class="nav-link" th:href="@{/about-us}" th:text="#{nav_bar_about}">About us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/contacts}">Contacts</a>
+                        <a class="nav-link" th:href="@{/contacts}" th:text="#{nav_bar_contacts}">Contacts</a>
                     </li>
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" th:href="@{/login}">Login</a>
-                    </li>
+<!--                    <li class="nav-item" sec:authorize="!isAuthenticated()">-->
+<!--                        <a class="nav-link" th:href="@{/login}" th:text="#{nav_bar_login}">Login</a>-->
+<!--                    </li>-->
                     <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                        <a class="nav-link" th:href="@{/register}">Register</a>
+                        <a class="nav-link" th:href="@{/register}" th:text="#{nav_bar_register}">Register</a>
                     </li>
                 </ul>
                 <form th:method="get" class="d-flex">
+                    <label class="nav-link" for="lang" th:text="#{nav_bar_language}">Language</label>
                     <select class="nav-link" id="lang" name="lang"
                             onchange="this.form.submit()"
                     >
-                        <option value="en_US">English</option>
-                        <option value="bg_BG">Български</option>
+                        <option value="en_US" th:selected="${#locale.toString()} == 'en_US'">English</option>
+                        <option value="bg_BG" th:selected="${#locale.toString()} == 'bg_BG'">Български</option>
                     </select>
                 </form>
+                <div class="d-flex" sec:authorize="!isAuthenticated()">
+                    <a class="btn btn-primary btn-block" th:href="@{/login}" th:text="#{nav_bar_login}">Login</a>
+                </div>
                 <form th:method="post" class="d-flex" th:action="@{/logout}" sec:authorize="isAuthenticated()">
-                    <button type="submit" class="btn btn-primary btn-block">Logout</button>
+                    <button type="submit" class="btn btn-primary btn-block" th:text="#{nav_bar_logout}">Logout</button>
                 </form>
+
             </div>
 
         </div>
