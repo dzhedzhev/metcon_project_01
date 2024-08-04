@@ -9,7 +9,7 @@ public interface TaskService {
     boolean add(AddTaskDTO data);
     List<TaskDTO> getAllTasks();
 
-    void delete(long id);
+    boolean delete(long id);
 
     TaskDTO getTaskById(long id);
 

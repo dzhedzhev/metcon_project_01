@@ -37,7 +37,10 @@ public class TaskController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<TaskDTO> deleteTask(@PathVariable("id") long id) {
-        this.taskService.delete(id);
+        boolean success = this.taskService.delete(id);
+        if (!success) {
+            throw new ApiTaskNotFoundException("Cannot delete task! There is no task associated with id " + id + "!", id);
+        }
         return ResponseEntity.ok().build();
     }
     @GetMapping("/{id}")
