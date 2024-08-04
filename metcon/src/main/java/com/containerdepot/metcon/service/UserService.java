@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface UserService {
     void signUp(SignUpDto signUpDto);
-    void deleteUser();
-    void editUser();
     List<UserDto> getAllUsers();
 
     void delete(Long id);

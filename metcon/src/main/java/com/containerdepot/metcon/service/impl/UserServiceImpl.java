@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         }
         boolean isUsernameOrEmailTaken = this.userRepository.existsByUsernameOrEmail(signUpDto.getUsername(), signUpDto.getEmail());
         if (isUsernameOrEmailTaken) {
-            throw new IllegalArgumentException("There is registered user wit this username! Please try again!");
+            throw new IllegalArgumentException("There is registered user with this username! Please try again!");
         }
         UserEntity userEntity = this.modelMapper.map(signUpDto, UserEntity.class);
         String company = signUpDto.getCompany();
@@ -53,15 +53,6 @@ public class UserServiceImpl implements UserService {
         this.userRepository.save(userEntity);
     }
 
-    @Override
-    public void deleteUser() {
-
-    }
-
-    @Override
-    public void editUser() {
-
-    }
 
     @Override
     public List<UserDto> getAllUsers() {
