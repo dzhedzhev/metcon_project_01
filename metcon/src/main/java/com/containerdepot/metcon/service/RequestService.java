@@ -15,5 +15,5 @@ public interface RequestService {
 
     void delete(Long id);
 
-    boolean edit(Long id, RequestAddDto data);
+    void edit(Long id, RequestAddDto data);
 }

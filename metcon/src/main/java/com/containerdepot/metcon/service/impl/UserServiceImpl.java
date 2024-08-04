@@ -33,25 +33,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean signUp(SignUpDto signUpDto) {
+    public void signUp(SignUpDto signUpDto) {
         if(!signUpDto.getPassword().equals(signUpDto.getConfirmPassword())) {
-            return false;
+            throw new IllegalArgumentException("Passwords do not match! Please try again!");
         }
         boolean isUsernameOrEmailTaken = this.userRepository.existsByUsernameOrEmail(signUpDto.getUsername(), signUpDto.getEmail());
         if (isUsernameOrEmailTaken) {
-            return false;
+            throw new IllegalArgumentException("There is registered user wit this username! Please try again!");
         }
         UserEntity userEntity = this.modelMapper.map(signUpDto, UserEntity.class);
         String company = signUpDto.getCompany();
         Optional<Company> byNameEn = this.companyRepository.findByNameEn(company);
         if (byNameEn.isEmpty()){
-            return false;
+            throw new IllegalArgumentException("No such company in database!");
         }
         userEntity.setCompany(byNameEn.get());
         userEntity.setRoles(signUpDto.getRoles().stream().map(this.roleRepository::findByRole).collect(Collectors.toSet()));
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         this.userRepository.save(userEntity);
-        return true;
     }
 
     @Override
@@ -76,6 +75,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
+        if (!this.userRepository.existsById(id)) {
+            throw new IllegalArgumentException("User with this id does not exist!");
+        }
         this.userRepository.deleteById(id);
     }
 }

@@ -64,11 +64,7 @@ public class UserController {
 
             return "redirect:/register";
         }
-
-        boolean success = this.userService.signUp(data);
-        if(!success) {
-            return "redirect:/register";
-        }
+        this.userService.signUp(data);
 
         return "redirect:/login";
     }

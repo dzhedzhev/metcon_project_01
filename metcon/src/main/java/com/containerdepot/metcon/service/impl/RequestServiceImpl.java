@@ -66,21 +66,17 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public boolean edit(Long id, RequestAddDto data) {
+    public void edit(Long id, RequestAddDto data) {
         Optional<Request> optionalRequest = this.requestRepository.findById(id);
         if (optionalRequest.isEmpty()) {
-            return false;
+            throw new IllegalArgumentException("There is no request with this id");
         }
         Request request = optionalRequest.get();
-//        request.setType(data.getType());
-//        request.setContainerNumber(data.getContainerNumber());
-//        request.setContainerType(data.getContainerType());
         request.setTruck(data.getTruck());
         /*
         Only the truck should be editable. New request would be required to change the rest of the fields
         and the old one should be deleted!
         */
         this.requestRepository.save(request);
-        return true;
     }
 }

@@ -67,7 +67,7 @@ public class RequestController { /*TODO transform to REST controller*/
     public String viewEditRequest(@PathVariable("id") Long id, Model model) {
         Optional<Request> optionalRequest = this.requestService.findRequestById(id);
         if (optionalRequest.isEmpty()) {
-            return "redirect:/containers/requests/all";/*TODO exception handling*/
+            throw new IllegalArgumentException("There is no request with this id!");
         }
         model.addAttribute("requestId", optionalRequest.get().getId());
         RequestAddDto requestAddDto = this.modelMapper.map(optionalRequest.get(), RequestAddDto.class);
@@ -84,10 +84,8 @@ public class RequestController { /*TODO transform to REST controller*/
                     bindingResult);
             return "redirect:/containers/requests/edit";
         }
-        boolean success = this.requestService.edit(id, data);
-        if (!success) {
-            return "redirect:/containers/requests/all"; /*TODO error handling*/
-        }
+        this.requestService.edit(id, data);
+
         return "redirect:/containers/requests/all";
     }
 }

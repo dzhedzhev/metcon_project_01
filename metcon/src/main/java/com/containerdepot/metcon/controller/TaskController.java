@@ -42,11 +42,11 @@ public class TaskController {
     ) {
         Optional<Request> byId = this.requestService.findRequestById(id);
         if (byId.isEmpty()) {
-            return "redirect:/containers/requests/all";
+            throw new IllegalArgumentException("Can not create task! There is no request such request!");
         }
         Request request = byId.get();
         TaskAddDto taskAddDto = new TaskAddDto();
-        taskAddDto.setType(request.getType().name());/*TODO refactor to String?*/
+        taskAddDto.setType(request.getType().name());
         taskAddDto.setCompany(request.getCompany().getNameEn());
         taskAddDto.setContainerNumber(request.getContainerNumber());
         taskAddDto.setContainerType(request.getContainerType().name());

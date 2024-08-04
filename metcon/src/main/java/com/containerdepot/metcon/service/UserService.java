@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public interface UserService {
-    boolean signUp(SignUpDto signUpDto);
+    void signUp(SignUpDto signUpDto);
     void deleteUser();
     void editUser();
     List<UserDto> getAllUsers();
