@@ -5,6 +5,7 @@ import com.lineragency.metcon_tasks.data.TaskRepository;
 import com.lineragency.metcon_tasks.model.dto.AddTaskDTO;
 import com.lineragency.metcon_tasks.model.dto.TaskDTO;
 import com.lineragency.metcon_tasks.model.entity.Task;
+import com.lineragency.metcon_tasks.service.exception.ApiTaskNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -27,7 +28,6 @@ public class TaskServiceImpl implements TaskService {
         if (existingTask) {
             return false;
         }
-//        Task task = this.modelMapper.map(data, Task.class);
         Task task = new Task();
         task.setType(data.type());
         task.setCompany(data.company());
@@ -53,7 +53,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskDTO getTaskById(long id) {
         return mapTaskToDTO(this.taskRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("Oops! There is no offer with id " + id + "!")));
+                new ApiTaskNotFoundException("Oops! There is no task with id " + id + "!", id)));
     }
 
     @Override

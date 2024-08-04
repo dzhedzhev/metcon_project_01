@@ -1,9 +1,9 @@
 package com.lineragency.metcon_tasks.web;
 
-import com.lineragency.metcon_tasks.data.TaskRepository;
 import com.lineragency.metcon_tasks.model.dto.AddTaskDTO;
 import com.lineragency.metcon_tasks.model.dto.TaskDTO;
 import com.lineragency.metcon_tasks.service.TaskService;
+import com.lineragency.metcon_tasks.service.exception.ApiTaskNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +30,7 @@ public class TaskController {
     public ResponseEntity<TaskDTO> editTask(@RequestBody TaskDTO data) {
         boolean success = this.taskService.edit(data);
         if (!success) {
-            throw new IllegalArgumentException("Cannot edit task! There is no task associated with id " + data.id() + "!");
+            throw new ApiTaskNotFoundException("Cannot edit task! There is no task associated with id " + data.id() + "!", data.id());
         }
         return ResponseEntity.ok().build();
     }

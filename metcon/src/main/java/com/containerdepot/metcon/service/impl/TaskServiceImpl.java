@@ -38,29 +38,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public boolean add(TaskAddDto data) {
-        boolean existingTask = this.taskRepository.existsByRequestId(data.getRequestId());
-        if (existingTask) {
-            return false;
-        }
-        Optional<Company> optionalCompany = this.companyRepository.findByNameEn(data.getCompany());
-        if (optionalCompany.isEmpty()) {
-            return false;
-        }
-        Optional<Request> optionalRequest = this.requestRepository.findById(data.getRequestId());
-        if (optionalRequest.isEmpty()) {
-            return false;
-        }
-        Task task = this.modelMapper.map(data, Task.class);
-        task.setCompany(optionalCompany.get());
-        task.setRequest(optionalRequest.get());
-        this.taskRepository.save(task);
-        return true;
-    }
-
-    @Override
     public void addTask(TaskAddDto data) {
-        LOGGER.debug("Adding task...");
         this.taskRestClient
                 .post()
                 .uri("http://localhost:8081/tasks")
@@ -70,14 +48,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskAddDto> getAllTasks() {
-//        return this.taskRepository.findAll().stream().map(t -> {
-//            TaskAddDto taskAddDto = this.modelMapper.map(t, TaskAddDto.class);
-//            taskAddDto.setCompany(t.getCompany().getNameEn());
-//            taskAddDto.setType(t.getType().name());
-//            taskAddDto.setContainerType(t.getContainerType().name());
-//            taskAddDto.setRequestId(t.getRequest().getId());
-//            return taskAddDto;
-//        }).collect(Collectors.toList());
         return this.taskRestClient
                 .get()
                 .uri("http://localhost:8081/tasks/all")
