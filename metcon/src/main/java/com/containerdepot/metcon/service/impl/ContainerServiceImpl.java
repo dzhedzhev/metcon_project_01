@@ -31,7 +31,7 @@ public class ContainerServiceImpl implements ContainerService {
     public boolean add(ContainerAddDto data) {
         Optional<Container> byNumber = this.containerRepository.findByNumberAndReleasedNotNull(data.getNumber());
         if (byNumber.isPresent() && byNumber.get().getReleased() == null) {
-            throw new IllegalArgumentException("There is no company with specified name!");
+            throw new IllegalArgumentException("Container is present at the depot!");
         }
         String company = data.getOwner();
         Optional<Company> byNameEn = this.companyRepository.findByNameEn(company);
@@ -46,14 +46,13 @@ public class ContainerServiceImpl implements ContainerService {
     }
 
     public List<ContainerAddDto> getAllOrderedByReceivedDesc() {
-        List<ContainerAddDto> collect = this.containerRepository.findByOrderByReceivedDesc()
+        return this.containerRepository.findByOrderByReceivedDesc()
                 .stream()
                 .map(c -> {
                     ContainerAddDto containerAddDto = this.modelMapper.map(c, ContainerAddDto.class);
                     containerAddDto.setOwner(c.getOwner().getNameEn());
                     return containerAddDto;
-                }).collect(Collectors.toList());
-        return collect;/*TODO pagination*/
+                }).collect(Collectors.toList());/*TODO pagination*/
     }
 
     @Override
@@ -77,7 +76,7 @@ public class ContainerServiceImpl implements ContainerService {
         Optional<Container> optionalContainer = this.containerRepository.findById(data.getId());
         Optional<Company> optionalCompany = this.companyRepository.findByNameEn(data.getOwner());
         if (optionalContainer.isEmpty() || optionalCompany.isEmpty()) {
-            return false;
+            throw new IllegalArgumentException("There is no such container at the depot!");
         }
         Container container = optionalContainer.get();
         container.setNumber(data.getNumber());
@@ -94,8 +93,9 @@ public class ContainerServiceImpl implements ContainerService {
 
     @Override
     public void delete(Long id) {
-        if (this.containerRepository.existsById(id)) {
-            this.containerRepository.deleteById(id);
-        } /*TODO exception handling*/
+        if (!this.containerRepository.existsById(id)) {
+            throw new IllegalArgumentException("There is no such container at the depot!");
+        }
+        this.containerRepository.deleteById(id);/*TODO exception handling*/
     }
 }
