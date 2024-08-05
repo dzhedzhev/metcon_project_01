@@ -1,6 +1,5 @@
 package com.containerdepot.metcon.service.impl;
 
-import com.containerdepot.metcon.authentication.AuthenticationFacade;
 import com.containerdepot.metcon.data.RequestRepository;
 import com.containerdepot.metcon.data.UserRepository;
 import com.containerdepot.metcon.model.entities.Company;
@@ -9,7 +8,6 @@ import com.containerdepot.metcon.model.entities.UserEntity;
 import com.containerdepot.metcon.service.RequestService;
 import com.containerdepot.metcon.service.dtos.imports.RequestAddDto;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,25 +17,21 @@ import java.util.Optional;
 public class RequestServiceImpl implements RequestService {
     private final ModelMapper modelMapper;
     private final RequestRepository requestRepository;
-    private final AuthenticationFacade authenticationFacade;
     private final UserRepository userRepository;
 
-    public RequestServiceImpl(ModelMapper modelMapper, RequestRepository requestRepository, AuthenticationFacade authenticationFacade, UserRepository userRepository) {
+    public RequestServiceImpl(ModelMapper modelMapper, RequestRepository requestRepository, UserRepository userRepository) {
         this.modelMapper = modelMapper;
         this.requestRepository = requestRepository;
-        this.authenticationFacade = authenticationFacade;
         this.userRepository = userRepository;
     }
 
     @Override
-    public void add(RequestAddDto data) {
+    public void add(RequestAddDto data, String username) {
         boolean existingRequest = this.requestRepository.existsByTypeAndContainerNumber(data.getType(), data.getContainerNumber());
         if (existingRequest) {
             throw new IllegalArgumentException("Request already exists!");
         }
-        Authentication authentication = this.authenticationFacade.getAuthentication();
-        String name = authentication.getName();
-        Optional<UserEntity> byUsername = this.userRepository.findByUsername(name);
+        Optional<UserEntity> byUsername = this.userRepository.findByUsername(username);
         if (byUsername.isEmpty()) {
             throw new IllegalArgumentException("Can not add request! User does not exist!");
         }
@@ -48,7 +42,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<Request> findAllContainersByIdDesc() {
+    public List<Request> findAllRequestsByIdDesc() {
         return this.requestRepository.findByOrderByIdDesc();
     }
 

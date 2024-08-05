@@ -1,5 +1,6 @@
 package com.containerdepot.metcon.controller;
 
+import com.containerdepot.metcon.model.MetconUserDetails;
 import com.containerdepot.metcon.model.entities.Request;
 import com.containerdepot.metcon.model.enums.ContainerIsoType;
 import com.containerdepot.metcon.model.enums.RequestEnum;
@@ -7,12 +8,14 @@ import com.containerdepot.metcon.service.RequestService;
 import com.containerdepot.metcon.service.dtos.imports.RequestAddDto;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +30,7 @@ public class RequestController { /*TODO transform to REST controller*/
         this.modelMapper = modelMapper;
     }
     @ModelAttribute("allRequests")
-    public List<Request> getAllRequests() { return this.requestService.findAllContainersByIdDesc();}
+    public List<Request> getAllRequests() { return this.requestService.findAllRequestsByIdDesc();}
     @ModelAttribute("allContainerTypes")
     public ContainerIsoType[] allContainerTypes() {
         return ContainerIsoType.values();
@@ -45,15 +48,16 @@ public class RequestController { /*TODO transform to REST controller*/
     @PostMapping("/requests/add")
     public String doRequestAdd (@Valid RequestAddDto data,
                                 BindingResult bindingResult,
-                                RedirectAttributes redirectAttributes
-    ) {
+                                RedirectAttributes redirectAttributes, @AuthenticationPrincipal MetconUserDetails metconUserDetails
+                                ) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("requestAddData", data);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.requestAddData",
                     bindingResult);
             return "redirect:/containers/requests/add";
         }
-        this.requestService.add(data);
+        String username = metconUserDetails.getUsername();
+        this.requestService.add(data, username);
         return "redirect:/containers/requests/all";
     }
     @GetMapping("/requests/all")

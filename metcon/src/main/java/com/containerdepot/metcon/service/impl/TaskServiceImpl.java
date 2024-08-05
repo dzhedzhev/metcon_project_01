@@ -2,7 +2,6 @@ package com.containerdepot.metcon.service.impl;
 
 import com.containerdepot.metcon.data.CompanyRepository;
 import com.containerdepot.metcon.data.RequestRepository;
-import com.containerdepot.metcon.data.TaskRepository;
 import com.containerdepot.metcon.service.TaskService;
 import com.containerdepot.metcon.service.dtos.imports.TaskAddDto;
 import org.modelmapper.ModelMapper;
@@ -14,14 +13,12 @@ import java.util.List;
 
 @Service
 public class TaskServiceImpl implements TaskService {
-    private final TaskRepository taskRepository;
     private final ModelMapper modelMapper;
     private final CompanyRepository companyRepository;
     private final RequestRepository requestRepository;
     private final RestClient taskRestClient;
 
-    public TaskServiceImpl(TaskRepository taskRepository, ModelMapper modelMapper, CompanyRepository companyRepository, RequestRepository requestRepository, RestClient taskRestClient) {
-        this.taskRepository = taskRepository;
+    public TaskServiceImpl(ModelMapper modelMapper, CompanyRepository companyRepository, RequestRepository requestRepository, RestClient taskRestClient) {
         this.modelMapper = modelMapper;
         this.companyRepository = companyRepository;
         this.requestRepository = requestRepository;

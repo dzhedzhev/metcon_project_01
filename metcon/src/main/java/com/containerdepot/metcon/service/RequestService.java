@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RequestService {
-    void add(RequestAddDto data);
+    void add(RequestAddDto data, String username);
 
-    List<Request> findAllContainersByIdDesc();
+    List<Request> findAllRequestsByIdDesc();
 
     Optional<Request> findRequestById(long id);
 
