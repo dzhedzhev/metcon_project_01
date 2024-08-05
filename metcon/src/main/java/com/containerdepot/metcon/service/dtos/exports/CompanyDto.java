@@ -18,6 +18,17 @@ public class CompanyDto {
     public CompanyDto() {
     }
 
+    public CompanyDto(long id, String nameEn, String nameBg, String vatNumber, String city, String address, String email, String phoneNumber) {
+        this.id = id;
+        this.nameEn = nameEn;
+        this.nameBg = nameBg;
+        this.vatNumber = vatNumber;
+        this.city = city;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
     public long getId() {
         return id;
     }
