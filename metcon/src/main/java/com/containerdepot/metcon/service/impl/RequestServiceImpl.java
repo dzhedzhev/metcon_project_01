@@ -58,7 +58,6 @@ public class RequestServiceImpl implements RequestService {
         }
         this.requestRepository.deleteById(id);/*TODO exception handling*/
     }
-
     @Override
     public void edit(Long id, RequestAddDto data) {
         Optional<Request> optionalRequest = this.requestRepository.findById(id);
@@ -67,10 +66,7 @@ public class RequestServiceImpl implements RequestService {
         }
         Request request = optionalRequest.get();
         request.setTruck(data.getTruck());
-        /*
-        Only the truck should be editable. New request would be required to change the rest of the fields
-        and the old one should be deleted!
-        */
+        /* Only the truck should be editable. New request would be required to change the rest of the fields and the old one should be deleted! */
         this.requestRepository.save(request);
     }
 }

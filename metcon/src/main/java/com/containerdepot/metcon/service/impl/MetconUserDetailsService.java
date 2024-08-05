@@ -32,12 +32,6 @@ public class MetconUserDetailsService implements UserDetailsService {
     }
 
     private static UserDetails map(UserEntity userEntity) {
-//        return User
-//                .withUsername(userEntity.getUsername())
-//                .password(userEntity.getPassword())
-//                .authorities(List.of())
-//                .disabled(false)
-//                .build();
         return new MetconUserDetails(
                 userEntity.getUsername(),
                 userEntity.getPassword(),
