@@ -90,6 +90,6 @@ public class ContainerServiceImpl implements ContainerService {
         if (!this.containerRepository.existsById(id)) {
             throw new IllegalArgumentException("There is no such container at the depot!");
         }
-        this.containerRepository.deleteById(id);/*TODO exception handling*/
+        this.containerRepository.deleteById(id);
     }
 }

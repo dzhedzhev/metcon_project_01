@@ -149,10 +149,10 @@ public class UserServiceImplTest {
     @Test
     void testDeleteUserDeletes() {
         Long id = 100L;
-        when(mockUserRepository.existsById(id)).thenReturn(true);
-        toTest.delete(id);
-        verify(mockUserRepository, times(1)).existsById(id);
-        verify(mockUserRepository, times(1)).deleteById(id);
+        when(this.mockUserRepository.existsById(id)).thenReturn(true);
+        this.toTest.delete(id);
+        verify(this.mockUserRepository, times(1)).existsById(id);
+        verify(this.mockUserRepository, times(1)).deleteById(id);
     }
     @Test
     void testGetAllUsersReturnsCorrectResult() {

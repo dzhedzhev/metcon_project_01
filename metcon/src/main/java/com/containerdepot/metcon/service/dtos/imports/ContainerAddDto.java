@@ -28,6 +28,16 @@ public class ContainerAddDto {
 
     public ContainerAddDto() {
     }
+    public ContainerAddDto(String number, ContainerIsoType type, boolean damaged, String owner, LocalDateTime received, String receivedByTruck, LocalDateTime released, String releasedToTruck) {
+        this.number = number;
+        this.type = type;
+        this.damaged = damaged;
+        this.owner = owner;
+        this.received = received;
+        this.receivedByTruck = receivedByTruck;
+        this.released = released;
+        this.releasedToTruck = releasedToTruck;
+    }
 
     public long getId() {
         return id;

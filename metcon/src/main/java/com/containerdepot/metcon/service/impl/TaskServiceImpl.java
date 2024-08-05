@@ -3,26 +3,17 @@ package com.containerdepot.metcon.service.impl;
 import com.containerdepot.metcon.data.CompanyRepository;
 import com.containerdepot.metcon.data.RequestRepository;
 import com.containerdepot.metcon.data.TaskRepository;
-import com.containerdepot.metcon.model.entities.Company;
-import com.containerdepot.metcon.model.entities.Request;
-import com.containerdepot.metcon.model.entities.Task;
 import com.containerdepot.metcon.service.TaskService;
 import com.containerdepot.metcon.service.dtos.imports.TaskAddDto;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl implements TaskService {
-    private final Logger LOGGER = LoggerFactory.getLogger(TaskServiceImpl.class);
     private final TaskRepository taskRepository;
     private final ModelMapper modelMapper;
     private final CompanyRepository companyRepository;

@@ -158,6 +158,14 @@ public class CompanyServiceImplTest {
         Assertions.assertEquals(companyEditDto.getEmail(), actualSavedCompany.getEmail());
         Assertions.assertEquals(companyEditDto.getPhoneNumber(), actualSavedCompany.getPhoneNumber());
     }
+    @Test
+    void testDeleteCompanyDeletes() {
+        Long id = 100L;
+        when(this.mockCompanyRepository.existsById(id)).thenReturn(true);
+        toTest.delete(id);
+        verify(this.mockCompanyRepository, times(1)).existsById(id);
+        verify(this.mockCompanyRepository, times(1)).deleteById(id);
+    }
 
 
 }

@@ -28,6 +28,20 @@ public class Container extends BaseEntity {
     public Container() {
     }
 
+    public Container(String number, ContainerIsoType type,
+                     boolean isDamaged, Company owner,
+                     LocalDateTime received, LocalDateTime released,
+                     String receivedByTruck, String releasedToTruck) {
+        this.number = number;
+        this.type = type;
+        this.isDamaged = isDamaged;
+        this.owner = owner;
+        this.received = received;
+        this.released = released;
+        this.receivedByTruck = receivedByTruck;
+        this.releasedToTruck = releasedToTruck;
+    }
+
     public String getNumber() {
         return number;
     }
