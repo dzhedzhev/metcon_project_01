@@ -173,4 +173,44 @@ public class ContainerServiceImplTest {
         Assertions.assertEquals(expectedContainers.get(1).getReleased(), actualContainers.get(1).getReleased());
         Assertions.assertEquals(expectedContainers.get(1).getReleasedToTruck(), actualContainers.get(1).getReleasedToTruck());
     }
+    @Test
+    void testGetAllOrderedByReceivedDescReturnsCorrectList() {
+        this.testCompany.setId(1L);
+        this.testContainer.setId(0L);
+        Container testContainer1 = new Container( "TEST4000001",
+                ContainerIsoType.FORTY_FT_HC, true, testCompany,
+                LocalDateTime.of(2024, 1, 2, 10, 0, 0),
+                LocalDateTime.of(2024, 1, 2, 18, 0, 0),
+                "B0001HH",
+                "B0001HH");
+        testContainer1.setId(1L);
+        this.testContainerAddDto0.setId(0L);
+        this.testContainerAddDto1.setId(1L);
+
+        when(this.mockContainerRepository.findByOrderByReceivedDesc()).thenReturn(List.of(testContainer1, testContainer));
+
+        List<ContainerAddDto> expectedContainers = List.of(this.testContainerAddDto1, this.testContainerAddDto0);
+        List<ContainerAddDto> actualContainers = toTest.getAllOrderedByReceivedDesc();
+
+        Assertions.assertEquals(expectedContainers.size(), actualContainers.size());
+        Assertions.assertEquals(expectedContainers.get(0).getId(), actualContainers.get(0).getId());
+        Assertions.assertEquals(expectedContainers.get(0).getNumber(), actualContainers.get(0).getNumber());
+        Assertions.assertEquals(expectedContainers.get(0).getType(), actualContainers.get(0).getType());
+        Assertions.assertEquals(expectedContainers.get(0).getDamaged(), actualContainers.get(0).getDamaged());
+        Assertions.assertEquals(expectedContainers.get(0).getOwner(), actualContainers.get(0).getOwner());
+        Assertions.assertEquals(expectedContainers.get(0).getReceived(), actualContainers.get(0).getReceived());
+        Assertions.assertEquals(expectedContainers.get(0).getReceivedByTruck(), actualContainers.get(0).getReceivedByTruck());
+        Assertions.assertEquals(expectedContainers.get(0).getReleased(), actualContainers.get(0).getReleased());
+        Assertions.assertEquals(expectedContainers.get(0).getReleasedToTruck(), actualContainers.get(0).getReleasedToTruck());
+
+        Assertions.assertEquals(expectedContainers.get(1).getId(), actualContainers.get(1).getId());
+        Assertions.assertEquals(expectedContainers.get(1).getNumber(), actualContainers.get(1).getNumber());
+        Assertions.assertEquals(expectedContainers.get(1).getType(), actualContainers.get(1).getType());
+        Assertions.assertEquals(expectedContainers.get(1).getDamaged(), actualContainers.get(1).getDamaged());
+        Assertions.assertEquals(expectedContainers.get(1).getOwner(), actualContainers.get(1).getOwner());
+        Assertions.assertEquals(expectedContainers.get(1).getReceived(), actualContainers.get(1).getReceived());
+        Assertions.assertEquals(expectedContainers.get(1).getReceivedByTruck(), actualContainers.get(1).getReceivedByTruck());
+        Assertions.assertEquals(expectedContainers.get(1).getReleased(), actualContainers.get(1).getReleased());
+        Assertions.assertEquals(expectedContainers.get(1).getReleasedToTruck(), actualContainers.get(1).getReleasedToTruck());
+    }
 }
