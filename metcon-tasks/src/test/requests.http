@@ -1,0 +1,13 @@
+### Send POST request with json body
+POST http://localhost:8081/tasks
+Content-Type: application/json
+
+{
+  "type" : "RELEASE",
+  "company" : "MET",
+  "containerNumber" : "MKLU4000008",
+  "containerType" : "FORTY_FT_HC",
+  "truck" : "B1555HH",
+  "dateTime" : "2024-07-31T22:50",
+  "requestId" : 56
+}

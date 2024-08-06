@@ -23,11 +23,16 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public boolean add(AddTaskDTO data) {
+    public TaskDTO add(AddTaskDTO data) {
         boolean existingTask = this.taskRepository.existsByRequestId(data.requestId());
         if (existingTask) {
-            return false;
+            throw new IllegalArgumentException("Cannot create task! There is a task associated with this request!");
         }
+        Task savedTask = this.taskRepository.save(map(data));
+        return map(savedTask);
+    }
+
+    private static Task map(AddTaskDTO data) {
         Task task = new Task();
         task.setType(data.type());
         task.setCompany(data.company());
@@ -36,13 +41,12 @@ public class TaskServiceImpl implements TaskService {
         task.setTruck(data.truck());
         task.setDateTime(data.dateTime());
         task.setRequestId(data.requestId());
-        this.taskRepository.save(task);
-        return true;
+        return task;
     }
 
     @Override
     public List<TaskDTO> getAllTasks() {
-        return this.taskRepository.findAll().stream().map(TaskServiceImpl::mapTaskToDTO).collect(Collectors.toList());
+        return this.taskRepository.findAll().stream().map(TaskServiceImpl::map).collect(Collectors.toList());
     }
 
     @Override
@@ -57,7 +61,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDTO getTaskById(long id) {
-        return mapTaskToDTO(this.taskRepository.findById(id).orElseThrow(() ->
+        return map(this.taskRepository.findById(id).orElseThrow(() ->
                 new ApiTaskNotFoundException("Oops! There is no task with id " + id + "!", id)));
     }
 
@@ -74,7 +78,7 @@ public class TaskServiceImpl implements TaskService {
         return true;
     }
 
-    private static TaskDTO mapTaskToDTO(Task t) {
+    private static TaskDTO map(Task t) {
         return new TaskDTO(t.getId(), t.getType(), t.getCompany(), t.getContainerNumber(),
                 t.getContainerType(), t.getTruck(), t.getDateTime(), t.getRequestId());
     }

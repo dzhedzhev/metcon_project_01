@@ -2,10 +2,12 @@ package com.lineragency.metcon_tasks.web;
 
 import com.lineragency.metcon_tasks.model.dto.AddTaskDTO;
 import com.lineragency.metcon_tasks.model.dto.TaskDTO;
+import com.lineragency.metcon_tasks.model.entity.Task;
 import com.lineragency.metcon_tasks.service.TaskService;
 import com.lineragency.metcon_tasks.service.exception.ApiTaskNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
@@ -20,11 +22,14 @@ public class TaskController {
 
     @PostMapping
     public ResponseEntity<TaskDTO> createTask(@RequestBody AddTaskDTO data) {
-        boolean success = this.taskService.add(data);
-        if (!success) {
-            throw new IllegalArgumentException("Cannot create task! There is a task associated with this request!");
-        }
-        return ResponseEntity.ok().build();
+        TaskDTO taskDTO = this.taskService.add(data);
+        return ResponseEntity
+                .created(ServletUriComponentsBuilder
+                        .fromCurrentRequest()
+                        .path("/{id}")
+                        .buildAndExpand(taskDTO.id())
+                        .toUri()
+                ).body(taskDTO);
     }
     @PutMapping("/edit")
     public ResponseEntity<TaskDTO> editTask(@RequestBody TaskDTO data) {
@@ -44,7 +49,7 @@ public class TaskController {
         return ResponseEntity.ok().build();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<TaskDTO> getTask(@PathVariable("id") long id) {
+    public ResponseEntity<TaskDTO> getTaskById(@PathVariable("id") long id) {
         return ResponseEntity.ok(this.taskService.getTaskById(id));
     }
 
