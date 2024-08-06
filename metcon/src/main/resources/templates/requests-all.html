@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <head th:replace="fragments/commons::head"></head>
-<body>
+<body style="background-image: url('/images/bg_1.jpg')">
     <!-- Navbar -->
     <header th:replace="fragments/commons::header"></header>
 
@@ -37,7 +37,7 @@
                                 <form th:method="delete"
                                       th:action="@{/containers/requests/delete/{id}(id=${request.id})}">
                                     <a class="btn btn-primary btn-sm" th:href="@{/containers/requests/edit/{id}(id=${request.id})}" role="button">Edit</a>
-                                    <a class="btn btn-success btn-sm" th:href="@{/containers/tasks/add(id=${request.id})}" role="button">Create task</a>
+                                    <a class="btn btn-success btn-sm" sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" th:href="@{/containers/tasks/add(id=${request.id})}" role="button">Create task</a>
                                     <button class="btn btn-danger btn-sm" type="submit">Delete</button>
                                 </form>
                             </div>

@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <head th:replace="~{fragments/commons::head}"></head>
-<body>
+<body style="background-image: url('/images/bg_1.jpg')">
     <!-- Navbar -->
     <header th:replace="~{fragments/commons::header}"></header>
 
@@ -14,31 +14,31 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card mb-4">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Image 1">
+                    <img src="/images/containers.jpg" class="card-img-top" alt="Image 1">
                     <div class="card-body">
                         <h5 class="card-title">Containers</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">See all</a>
+                        <a th:href="@{/containers/all}" class="btn btn-primary">See all</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card mb-4">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Image 2">
+                    <img src="/images/companies.jpg" class="card-img-top" alt="Image 2">
                     <div class="card-body">
                         <h5 class="card-title">Companies</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">See all</a>
+                        <a th:href="@{/companies/all}" class="btn btn-primary">See all</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card mb-4">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Image 3">
+                    <img src="/images/requests.jpg" class="card-img-top" alt="Image 3">
                     <div class="card-body">
-                        <h5 class="card-title">Haulage</h5>
+                        <h5 class="card-title">Requests</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">See more</a>
+                        <a th:href="@{/containers/requests/all}" class="btn btn-primary">See all</a>
                     </div>
                 </div>
             </div>
