@@ -1,4 +1,4 @@
-package com.containerdepot.metcon.controller;
+package com.containerdepot.metcon.web;
 
 import com.containerdepot.metcon.model.MetconUserDetails;
 import com.containerdepot.metcon.model.entities.Request;
@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 

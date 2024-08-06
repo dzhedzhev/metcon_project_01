@@ -1,4 +1,4 @@
-package com.containerdepot.metcon.controller;
+package com.containerdepot.metcon.web;
 
 import com.containerdepot.metcon.model.enums.UserRole;
 import com.containerdepot.metcon.service.CompanyService;
@@ -54,9 +54,9 @@ public class UserController {
         return "users-all";
     }
     @PostMapping("/register")
-    public String doSignUp(@Valid SignUpDto data,
-                           BindingResult bindingResult,
-                           RedirectAttributes redirectAttributes) {
+    public String doRegister(@Valid SignUpDto data,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("signUpData", data);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.signUpData",

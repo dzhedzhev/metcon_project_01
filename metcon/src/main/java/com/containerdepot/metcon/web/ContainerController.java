@@ -1,4 +1,4 @@
-package com.containerdepot.metcon.controller;
+package com.containerdepot.metcon.web;
 
 import com.containerdepot.metcon.data.CompanyRepository;
 import com.containerdepot.metcon.model.entities.Company;

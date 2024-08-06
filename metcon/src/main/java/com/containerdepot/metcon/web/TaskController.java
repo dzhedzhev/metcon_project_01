@@ -1,4 +1,4 @@
-package com.containerdepot.metcon.controller;
+package com.containerdepot.metcon.web;
 
 import com.containerdepot.metcon.model.entities.Request;
 import com.containerdepot.metcon.service.RequestService;
