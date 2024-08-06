@@ -32,18 +32,6 @@ public class TaskServiceImpl implements TaskService {
         return map(savedTask);
     }
 
-    private static Task map(AddTaskDTO data) {
-        Task task = new Task();
-        task.setType(data.type());
-        task.setCompany(data.company());
-        task.setContainerNumber(data.containerNumber());
-        task.setContainerType(data.containerType());
-        task.setTruck(data.truck());
-        task.setDateTime(data.dateTime());
-        task.setRequestId(data.requestId());
-        return task;
-    }
-
     @Override
     public List<TaskDTO> getAllTasks() {
         return this.taskRepository.findAll().stream().map(TaskServiceImpl::map).collect(Collectors.toList());
@@ -53,7 +41,7 @@ public class TaskServiceImpl implements TaskService {
     public boolean delete(long id) {
         Optional<Task> optionalTask = this.taskRepository.findById(id);
         if (optionalTask.isEmpty()) {
-            return false;
+            throw new ApiTaskNotFoundException("Oops! There is no task with id " + id + "!", id);
         }
         this.taskRepository.deleteById(id);
         return true;
@@ -81,5 +69,16 @@ public class TaskServiceImpl implements TaskService {
     private static TaskDTO map(Task t) {
         return new TaskDTO(t.getId(), t.getType(), t.getCompany(), t.getContainerNumber(),
                 t.getContainerType(), t.getTruck(), t.getDateTime(), t.getRequestId());
+    }
+    private static Task map(AddTaskDTO data) {
+        Task task = new Task();
+        task.setType(data.type());
+        task.setCompany(data.company());
+        task.setContainerNumber(data.containerNumber());
+        task.setContainerType(data.containerType());
+        task.setTruck(data.truck());
+        task.setDateTime(data.dateTime());
+        task.setRequestId(data.requestId());
+        return task;
     }
 }

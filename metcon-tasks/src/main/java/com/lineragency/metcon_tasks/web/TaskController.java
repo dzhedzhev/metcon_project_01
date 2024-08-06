@@ -46,7 +46,7 @@ public class TaskController {
         if (!success) {
             throw new ApiTaskNotFoundException("Cannot delete task! There is no task associated with id " + id + "!", id);
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")
     public ResponseEntity<TaskDTO> getTaskById(@PathVariable("id") long id) {
