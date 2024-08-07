@@ -7,6 +7,7 @@ import com.containerdepot.metcon.service.dtos.imports.SignUpDto;
 import com.containerdepot.metcon.service.dtos.imports.UserDto;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -54,6 +55,7 @@ public class UserController {
         return "users-all";
     }
     @PostMapping("/register")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String doRegister(@Valid SignUpDto data,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes) {
@@ -69,6 +71,7 @@ public class UserController {
         return "redirect:/login";
     }
     @DeleteMapping("/users/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String deleteUser(@PathVariable("id") Long id) {
         this.userService.delete(id);
         return "redirect:/users";

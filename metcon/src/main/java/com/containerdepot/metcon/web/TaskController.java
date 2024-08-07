@@ -5,6 +5,7 @@ import com.containerdepot.metcon.service.RequestService;
 import com.containerdepot.metcon.service.TaskService;
 import com.containerdepot.metcon.service.dtos.imports.TaskAddDto;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +37,7 @@ public class TaskController {
     }
 
     @GetMapping("/add")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String viewTaskAdd(
             Model model,
             @RequestParam long id
@@ -57,6 +59,7 @@ public class TaskController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String doTaskAdd(@Valid TaskAddDto data,
                             BindingResult bindingResult,
                             RedirectAttributes redirectAttributes
@@ -71,16 +74,19 @@ public class TaskController {
         return "redirect:/containers/tasks/all";
     }
     @GetMapping("/all")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String viewAllTasks() {
         return "tasks-all";
     }
     @GetMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String viewEditTask(@PathVariable("id") Long id, Model model) {
         TaskAddDto taskById = this.taskService.getTaskById(id);
         model.addAttribute("taskDto", taskById);
         return "task-edit";
     }
     @PostMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String doEditTask(@PathVariable("id") Long id, @Valid TaskAddDto data,
                              BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -93,6 +99,7 @@ public class TaskController {
         return "redirect:/containers/tasks/all";
     }
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String deleteTask(@PathVariable("id") Long id) {
         this.taskService.delete(id);
         return "redirect:/containers/tasks/all";

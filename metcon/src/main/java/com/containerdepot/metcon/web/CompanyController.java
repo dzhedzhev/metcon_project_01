@@ -7,6 +7,8 @@ import com.containerdepot.metcon.service.dtos.imports.CompanyAddDto;
 import com.containerdepot.metcon.service.dtos.imports.CompanyEditDto;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.security.authorization.AuthorityAuthorizationManager.hasRole;
 
 @Controller
 @RequestMapping("/companies")
@@ -33,8 +37,10 @@ public class CompanyController {
     @ModelAttribute("companyEditData")
     public CompanyEditDto companyEditDto() {return new CompanyEditDto();}
     @GetMapping("/add")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     private String viewCompanyAdd() {return "company-add";}
     @PostMapping("/add")
+    @Secured({"ROLE_MODERATOR", "ROLE_ADMIN"})
     public String doAddCompany(@Valid CompanyAddDto data,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes) {
@@ -52,6 +58,7 @@ public class CompanyController {
     @GetMapping("/all")
     public String viewCompaniesAll() {return "companies-all";}
     @GetMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String viewEditCompany(@PathVariable("id") Long id, Model model) {
         Optional<Company> companyById = this.companyService.findCompanyById(id);
         if (companyById.isEmpty()) {
@@ -65,8 +72,10 @@ public class CompanyController {
         return "company-edit";
     }
     @GetMapping("/edit")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String viewErrEditCompany() {return "company-edit";}
     @PostMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String doEditCompany(@Valid @ModelAttribute("companyEditData") CompanyEditDto data,
                                 BindingResult bindingResult,
                                 RedirectAttributes redirectAttributes) {
@@ -80,6 +89,7 @@ public class CompanyController {
         return "redirect:/companies/all";
     }
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String deleteRequest(@PathVariable("id") Long id) {
         this.companyService.delete(id);
         return "redirect:/companies/all";

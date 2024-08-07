@@ -9,7 +9,7 @@
     <header th:replace="fragments/commons::header"></header>
     <div class="container mt-5">
         <h2 class="text-center mb-4">All companies</h2>
-        <a class="btn btn-primary btn-m mb-3" th:href="@{/companies/add}" role="button">Add company</a>
+        <a class="btn btn-primary btn-m mb-3" sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" th:href="@{/companies/add}" role="button">Add company</a>
     </div>
 
     <!-- Card Grid Section -->
@@ -33,8 +33,8 @@
                             <form th:method="delete"
                             th:action="@{/companies/delete/{id}(id=${company.id})}">
                                 <a type="button" class="btn btn-warning" th:href="@{/containers/company(id=${company.id})}">Containers</a>
-                                <a type="button" class="btn btn-primary" th:href="@{/companies/edit/{id}(id=${company.id})}">Edit</a>
-                                <button class="btn btn-danger" type="submit">Delete</button>
+                                <a type="button" class="btn btn-primary" sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" th:href="@{/companies/edit/{id}(id=${company.id})}">Edit</a>
+                                <button class="btn btn-danger" type="submit" sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')">Delete</button>
                             </form>
                         </div>
                     </div>

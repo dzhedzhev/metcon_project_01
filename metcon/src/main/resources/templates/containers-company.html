@@ -37,9 +37,15 @@
                         <td th:value="${container.receivedByTruck}" th:text="${container.receivedByTruck}">Data 6</td>
                         <td th:value="${container.released}" th:text="${container.released}">Data 7</td>
                         <td th:value="${container.releasedToTruck}" th:text="${container.releasedToTruck}">Data 8</td>
-                        <td style="white-space: nowrap">
-                            <a class="btn btn-primary btn-sm mb-1" th:href="@{/containers/add}" role="button">Edit</a>
-                            <a class="btn btn-danger btn-sm mb-1" th:href="@{/containers/add}" role="button">Delete</a>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <form
+                                        th:method="delete"
+                                        th:action="@{/containers/delete/{id}(id=${container.id})}" role="group">
+                                    <a type="button" class="btn btn-primary btn-sm" sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" th:href="@{/containers/edit/{id}(id=${container.id})}">Edit</a>
+                                    <button type="submit" class="btn btn-danger btn-sm" sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')">Delete</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     <!-- Add more rows as needed -->

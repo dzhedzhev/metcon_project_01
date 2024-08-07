@@ -35,8 +35,8 @@
                             <div class="btn-group" role="group">
                                 <form th:method="delete"
                                       th:action="@{/containers/tasks/delete/{id}(id=${task.id})}">
-                                    <a class="btn btn-primary btn-sm" th:href="@{/containers/tasks/edit/{id}(id=${task.id})}" role="button">Edit</a>
-                                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                    <a class="btn btn-primary btn-sm" sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" th:href="@{/containers/tasks/edit/{id}(id=${task.id})}" role="button">Edit</a>
+                                    <button class="btn btn-danger btn-sm" sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" type="submit">Delete</button>
                                 </form>
                             </div>
                         </td>

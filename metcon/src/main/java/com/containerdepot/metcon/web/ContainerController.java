@@ -10,6 +10,7 @@ import com.containerdepot.metcon.service.dtos.imports.ContainerAddDto;
 import com.containerdepot.metcon.service.dtos.imports.ContainerEditDto;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -64,11 +65,13 @@ public class ContainerController {
     }
 
     @GetMapping("/containers/add")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String containersAddView() {
         return "/containers-add";
     }
 
     @PostMapping("/containers/add")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String doAddContainer(@Valid ContainerAddDto data,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes) {
@@ -98,6 +101,7 @@ public class ContainerController {
         return "containers-company";
     }
     @GetMapping("/containers/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String viewEditContainer(@PathVariable("id") Long id, Model model) {
         Optional<Container> optionalContainer = this.containerService.findContainerById(id);
         if (optionalContainer.isEmpty()) {
@@ -113,6 +117,7 @@ public class ContainerController {
         return "containers-edit";
     }
     @PostMapping("/containers/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String doEditContainer(@Valid ContainerEditDto data,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes) {
@@ -129,6 +134,7 @@ public class ContainerController {
         return "redirect:/containers/all";
     }
     @DeleteMapping("/containers/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
     public String deleteContainer(@PathVariable("id") Long id) {
         this.containerService.delete(id);
         return "redirect:/containers/all";
