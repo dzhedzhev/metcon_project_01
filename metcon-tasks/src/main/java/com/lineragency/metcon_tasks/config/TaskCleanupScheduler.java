@@ -22,9 +22,9 @@ public class TaskCleanupScheduler {
         this.taskRepository = taskRepository;
     }
 
-    @Scheduled(cron = "0 */2 * * * *")  // Every day at midnight
+    @Scheduled(cron = "0 0 0 * * *")  // Every day at midnight
     public void deleteOldEntities() {
-        LocalDateTime cutoffDateTime = LocalDateTime.now().minusMonths(3);
+        LocalDateTime cutoffDateTime = LocalDateTime.now().minusMonths(6);
         int tasksDeleted = taskRepository.deleteByDateTimeBefore(cutoffDateTime);
 
         LOGGER.info("Deleted all tasks before: " + cutoffDateTime + ". Affected records: " + tasksDeleted);
