@@ -84,12 +84,12 @@
                 <p th:text="#{footer_nav_info}">Here you can use rows and columns to organize your footer content.</p>
             </div>
             <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                <h5 class="text-uppercase">Links</h5>
+                <h5 class="text-uppercase" th:text="#{footer_links}">Links</h5>
                 <ul class="list-unstyled mb-0">
-                    <li><a class="text-dark" th:href="@{/home}" th:text="#{nav_bar_home}">Home</a></li>
-                    <li><a class="text-dark" th:href="@{/containers/all}" th:text="#{nav_bar_storage}">Storage</a></li>
-                    <li><a class="text-dark" th:href="@{/companies/all}" th:text="#{nav_bar_companies}">Companies</a></li>
-                    <li><a class="text-dark" th:href="@{/containers/requests/all}" th:text="#{nav_bar_requests}">Requests</a></li>
+                    <li><a class="text-dark" sec:authorize="isAuthenticated()" th:href="@{/home}" th:text="#{nav_bar_home}">Home</a></li>
+                    <li><a class="text-dark" sec:authorize="isAuthenticated()" th:href="@{/containers/all}" th:text="#{nav_bar_storage}">Storage</a></li>
+                    <li><a class="text-dark" sec:authorize="isAuthenticated()" th:href="@{/companies/all}" th:text="#{nav_bar_companies}">Companies</a></li>
+                    <li><a class="text-dark" sec:authorize="isAuthenticated()" th:href="@{/containers/requests/all}" th:text="#{nav_bar_requests}">Requests</a></li>
                     <li><a class="text-dark" th:href="@{/about-us}" th:text="#{nav_bar_about}">About us</a></li>
                     <li><a class="text-dark" th:href="@{/contacts}" th:text="#{nav_bar_contacts}">Contacts</a></li>
 
