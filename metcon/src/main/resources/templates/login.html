@@ -13,6 +13,12 @@
             <div class="col-md-6">
                 <h2 class="text-center mb-4">Login</h2>
                 <form th:method="post" th:action="@{/login}">
+                    <div class="alert alert-danger text-center" th:if="${param.error}">
+                        Invalid username or password. Please try again!
+                    </div>
+                    <div class="alert alert-success text-center" th:if="${param.logout}">
+                        Successfully logged out!
+                    </div>
                     <div class="form-group">
                         <label for="username">Username</label>
                         <input type="text" class="form-control" id="username" th:name="username" placeholder="Enter username" required>

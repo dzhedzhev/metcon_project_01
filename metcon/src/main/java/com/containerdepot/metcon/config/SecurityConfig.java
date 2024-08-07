@@ -24,12 +24,10 @@ public class SecurityConfig {
                                 .loginPage("/login")
                                 .usernameParameter("username")
                                 .passwordParameter("password")
-                                .defaultSuccessUrl("/", true)
-                                .failureForwardUrl("/login-error"))
+                                .defaultSuccessUrl("/", true))
                 .logout(logout ->
                         logout
                                 .logoutUrl("/logout")
-                                .logoutSuccessUrl("/")
                                 .invalidateHttpSession(true)
                 )
                 .build();
