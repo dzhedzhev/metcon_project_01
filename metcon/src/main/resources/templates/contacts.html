@@ -17,13 +17,13 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6 mb-4">
-                <h2>Contact Details</h2>
+                <h2 th:text="#{contacts_heading}">Contact Details</h2>
                 <ul>
-                    <li><strong>Address:</strong> South Industrial Zone, Devnya, Bulgaria</li>
-                    <li><strong>Phone:</strong> +359 52 105 105</li>
-                    <li><strong>Email:</strong> metcon-depot@mail.com</li>
-                    <li><strong>Business Hours of office:</strong> Mon - Fri, 09:00 - 18:00</li>
-                    <li><strong>Business Hours of depot:</strong> Mon - Sun, 00:00 - 24:00</li>
+                    <li><strong th:text="#{contacts_address}">Address:</strong><span th:text="#{address_depot}"></span> South Industrial Zone, Devnya, Bulgaria</li>
+                    <li><strong th:text="#{contacts_phone}">Phone:</strong> +359 52 105 105</li>
+                    <li><strong>E-mail:</strong> metcon-depot@mail.com</li>
+                    <li><strong th:text="#{contacts_wt_office}">Business Hours of office:</strong><span th:text="#{working_days_office}"> Mon - Fri</span>, 09:00 - 18:00</li>
+                    <li><strong th:text="#{contacts_wt_depot}">Business Hours of depot:</strong><span th:text="#{working_days_depot}"> Mon - Sun</span>, 00:00 - 24:00</li>
                 </ul>
             </div>
             <div class="col-md-6">
@@ -38,13 +38,6 @@
                                 allowfullscreen=""
                                 loading="lazy">
                         </iframe>
-                    </div>
-                    <h2>Follow Us</h2>
-                    <div class="social-icons">
-                        <a href="#"><i class="bi bi-facebook"></i></a>
-                        <a href="#"><i class="bi bi-twitter"></i></a>
-                        <a href="#"><i class="bi bi-linkedin"></i></a>
-                        <a href="#"><i class="bi bi-instagram"></i></a>
                     </div>
                 </div>
             </div>

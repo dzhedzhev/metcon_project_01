@@ -10,10 +10,12 @@
 
     <!-- Hero Section -->
     <div class="jumbotron text-center">
-        <h1 class="display-4">Welcome to METCON Depot<span th:text="${welcomeMessage}"></span>!</h1>
-        <p class="lead">Within the area of 18 000 sq. m and a capacity of more than 1 500 TEUs, the depot hub is an essential part of the container supply chain. We are offering full scope of storage and supporting services for the carrier’s equipment.
+        <h1 class="display-4" th:text="#{index_welcome}">Welcome to METCON Depot<span th:text="${welcomeMessage}"></span>!</h1>
+        <p class="lead" th:text="#{about_basic_info}">Within the area of 18 000 sq. m and a capacity of more than 1 500 TEUs, the depot hub is an essential part of the container supply chain. We are offering full scope of storage and supporting services for the carrier’s equipment.
             24 hours live security and Security system including video surveillance (CCTV). Controlled access for persons and vehicles.</p>
-        <a class="btn btn-primary btn-lg" sec:authorize="!isAuthenticated()" th:href="@{/login}" role="button">Login to continue...</a>
+        <a class="btn btn-primary btn-lg"
+           sec:authorize="!isAuthenticated()" th:href="@{/login}"
+           role="button" th:text="#{index_login}">Login to continue...</a>
     </div>
 
     <!-- Footer -->

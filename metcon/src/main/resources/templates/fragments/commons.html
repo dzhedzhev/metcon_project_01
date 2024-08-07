@@ -43,12 +43,13 @@
                         <a class="nav-link" th:href="@{/contacts}" th:text="#{nav_bar_contacts}">Contacts</a>
                     </li>
                     <li class="nav-item dropdown"  sec:authorize="hasRole('ADMIN')">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false" th:text="#{nav_bar_admin}">
                             Admin
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" th:href="@{/register}" th:text="#{nav_bar_register}">Register</a></li>
-                            <li><a class="dropdown-item" th:href="@{/users}">Users</a></li>
+                            <li><a class="dropdown-item" th:href="@{/users}" th:text="#{nav_bar_users}">Users</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -79,8 +80,8 @@
     <div class="container p-4">
         <div class="row">
             <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                <h5 class="text-uppercase">We secure your stock!</h5>
-                <p>Here you can use rows and columns to organize your footer content.</p>
+                <h5 class="text-uppercase" th:text="#{footer_slogan}">We secure your stock!</h5>
+                <p th:text="#{footer_nav_info}">Here you can use rows and columns to organize your footer content.</p>
             </div>
             <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
                 <h5 class="text-uppercase">Links</h5>
