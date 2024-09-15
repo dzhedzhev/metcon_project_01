@@ -28,7 +28,7 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    <tr th:each="container : ${allContainers}">
+                    <tr th:each="container : ${allContainersPaged.getContent()}">
                         <td th:value="${container.getId()}" th:text="${container.getId()}">1</td>
                         <td th:value="${container.number}" th:text="${container.number}">Data 1</td>
                         <td th:value="${container.type}" th:text="${container.type}">Data 2</td>
@@ -52,6 +52,21 @@
                     <!-- Add more rows as needed -->
                 </tbody>
             </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"><a class="page-link" th:href="@{'/containers/all/page/' + ${i}}" >[[${i}]]</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 

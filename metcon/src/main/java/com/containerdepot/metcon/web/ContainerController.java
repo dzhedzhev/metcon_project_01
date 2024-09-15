@@ -10,6 +10,10 @@ import com.containerdepot.metcon.service.dtos.imports.ContainerAddDto;
 import com.containerdepot.metcon.service.dtos.imports.ContainerEditDto;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedModel;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,9 +62,25 @@ public class ContainerController {
     public List<ContainerAddDto> getAllContainers() {
         return this.containerService.getAllOrderedByReceivedDesc();
     }
+//    @ModelAttribute("allContainersPaged")
+//    public PagedModel<ContainerAddDto> getAllContainersPaged(Pageable pageable) {
+//        return this.containerService.getAllContainers(pageable);
+//    }
 
-    @GetMapping("/containers/all")
-    public String containersAllView() {
+    @GetMapping("/containers/all/page/{pageNumber}")
+    public String containersAllView(Model model, @PageableDefault(
+            size = 5,
+            sort="id",
+            direction = Sort.Direction.DESC
+    ) Pageable pageable, @PathVariable("pageNumber") int currentPage) {
+        PagedModel<ContainerAddDto> allContainersPaged = this.containerService.getAllContainers(pageable, currentPage);
+        long totalItems = allContainersPaged.getMetadata().totalElements();
+        long totalPages = allContainersPaged.getMetadata().totalPages();
+
+        model.addAttribute("allContainersPaged", allContainersPaged);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("totalPages", totalPages);
+
         return "/containers-all";
     }
 

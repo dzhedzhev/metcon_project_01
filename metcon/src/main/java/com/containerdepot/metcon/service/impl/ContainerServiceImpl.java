@@ -8,6 +8,10 @@ import com.containerdepot.metcon.service.ContainerService;
 import com.containerdepot.metcon.service.dtos.imports.ContainerAddDto;
 import com.containerdepot.metcon.service.dtos.imports.ContainerEditDto;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PagedModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,6 +57,15 @@ public class ContainerServiceImpl implements ContainerService {
                     containerAddDto.setOwner(c.getOwner().getNameEn());
                     return containerAddDto;
                 }).collect(Collectors.toList());/*TODO pagination*/
+    }
+    public PagedModel<ContainerAddDto> getAllContainers(Pageable pageable, int pageNumber) {
+        pageable = PageRequest.of(pageNumber - 1, 10);
+        return new PagedModel<>(this.containerRepository.findAll(pageable)
+                .map(c -> {
+                    ContainerAddDto containerAddDto = this.modelMapper.map(c, ContainerAddDto.class);
+                    containerAddDto.setOwner(c.getOwner().getNameEn());
+                    return containerAddDto;
+                }));
     }
 
     @Override
