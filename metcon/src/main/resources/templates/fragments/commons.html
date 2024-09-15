@@ -30,7 +30,7 @@
                             Services
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" th:href="@{/containers/all}" th:text="#{nav_bar_storage}">Storage</a></li>
+                            <li><a class="dropdown-item" th:href="@{/containers/all/page/1}" th:text="#{nav_bar_storage}">Storage</a></li>
                             <li><a class="dropdown-item" th:href="@{/companies/all}" th:text="#{nav_bar_companies}">Companies</a></li>
                             <li><a class="dropdown-item" th:href="@{/containers/requests/all}" th:text="#{nav_bar_requests}">Requests</a></li>
                             <li><a class="dropdown-item" sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" th:href="@{/containers/tasks/all}" th:text="#{nav_bar_tasks}">Tasks</a></li>
