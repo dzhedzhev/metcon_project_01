@@ -80,6 +80,7 @@ public class ContainerController {
         model.addAttribute("allContainersPaged", allContainersPaged);
         model.addAttribute("totalItems", totalItems);
         model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", currentPage);
 
         return "/containers-all";
     }
