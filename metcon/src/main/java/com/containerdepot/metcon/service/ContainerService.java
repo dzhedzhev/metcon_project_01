@@ -17,7 +17,7 @@ public interface ContainerService {
 
     PagedModel<ContainerAddDto> getAllContainers(Pageable pageable, int pageNumber);
 
-    List<ContainerAddDto> findAllByCompanyId(long id);/*TODO return list of ContainerDto*/
+    List<ContainerAddDto> findAllByCompanyId(long id);
 
     Optional<Container> findContainerById(Long id);
 

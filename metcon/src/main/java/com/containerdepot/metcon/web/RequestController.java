@@ -8,6 +8,10 @@ import com.containerdepot.metcon.service.RequestService;
 import com.containerdepot.metcon.service.dtos.imports.RequestAddDto;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedModel;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,6 +65,23 @@ public class RequestController { /*TODO transform to REST controller*/
     }
     @GetMapping("/requests/all")
     public String viewRequestsAll() {return "requests-all";}
+    @GetMapping("/requests/all/page/{pageNumber}")
+    public String viewRequestsAllPaged(Model model, @PageableDefault(
+            size = 5,
+            sort="id",
+            direction = Sort.Direction.DESC
+    ) Pageable pageable, @PathVariable("pageNumber") int currentPage) {
+        PagedModel<Request> allRequestsByIdDescPaged = this.requestService.findAllRequestsByIdDesc(pageable, currentPage);
+        long totalElements = allRequestsByIdDescPaged.getMetadata().totalElements();
+        long totalPages = allRequestsByIdDescPaged.getMetadata().totalPages();
+
+        model.addAttribute("allRequestsByIdDescPaged", allRequestsByIdDescPaged);
+        model.addAttribute("totalItems", totalElements);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", currentPage);
+
+        return "requests-all";
+    }
     @DeleteMapping("/requests/delete/{id}")
     public String deleteRequest(@PathVariable("id") Long id) {
         this.requestService.delete(id);

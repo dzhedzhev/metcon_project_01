@@ -8,6 +8,9 @@ import com.containerdepot.metcon.model.entities.UserEntity;
 import com.containerdepot.metcon.service.RequestService;
 import com.containerdepot.metcon.service.dtos.imports.RequestAddDto;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,6 +47,12 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<Request> findAllRequestsByIdDesc() {
         return this.requestRepository.findByOrderByIdDesc();
+    }
+
+    @Override
+    public PagedModel<Request> findAllRequestsByIdDesc(Pageable pageable, int pageNumber) {
+        pageable = PageRequest.of(pageNumber - 1, 10);
+        return new PagedModel<>(this.requestRepository.findByOrderByIdDesc(pageable));
     }
 
     @Override

@@ -25,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    <tr th:each="request : ${allRequests}">
+                    <tr th:each="request : ${allRequestsByIdDescPaged.getContent()}">
                         <td th:value="${request.id}" th:text="${request.id}">1</td>
                         <td th:value="${request.type}" th:text="${request.type}">Data 1</td>
                         <td th:value="${request.containerNumber}" th:text="${request.containerNumber}">Data 2</td>
@@ -46,6 +46,35 @@
                     <!-- Add more rows as needed -->
                 </tbody>
             </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a th:if="${currentPage > 1}" class="page-link" th:href="@{/containers/requests/all/page/1}" aria-label="First">
+                            <span>First</span>
+                        </a>
+                        <span th:unless="${currentPage > 1}"  class="page-link">First</span>
+                    </li>
+                    <li class="page-item">
+                        <a th:if="${currentPage > 1}" class="page-link" th:href="@{/containers/requests/all/page/{i}(i=${currentPage - 1})}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                        <span th:unless="${currentPage > 1}"  class="page-link">&laquo;</span>
+                    </li>
+                    <li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"><a class="page-link" th:href="@{/containers/requests/all/page/{i}(i=${i})}" >[[${i}]]</a></li>
+                    <li class="page-item">
+                        <a th:if="${currentPage < totalPages}" class="page-link" th:href="@{/containers/requests/all/page/{i}(i=${currentPage + 1})}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                        <span th:unless="${currentPage < totalPages}"  class="page-link">&raquo;</span>
+                    </li>
+                    <li class="page-item">
+                        <a th:if="${currentPage < totalPages}" class="page-link" th:href="@{/containers/requests/all/page/{i}(i=${totalPages})}" aria-label="Last">
+                            <span>Last</span>
+                        </a>
+                        <span th:unless="${currentPage < totalPages}"  class="page-link">Last</span>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 

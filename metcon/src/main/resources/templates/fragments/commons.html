@@ -32,7 +32,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" th:href="@{/containers/all/page/1}" th:text="#{nav_bar_storage}">Storage</a></li>
                             <li><a class="dropdown-item" th:href="@{/companies/all}" th:text="#{nav_bar_companies}">Companies</a></li>
-                            <li><a class="dropdown-item" th:href="@{/containers/requests/all}" th:text="#{nav_bar_requests}">Requests</a></li>
+                            <li><a class="dropdown-item" th:href="@{/containers/requests/all/page/1}" th:text="#{nav_bar_requests}">Requests</a></li>
                             <li><a class="dropdown-item" sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" th:href="@{/containers/tasks/all}" th:text="#{nav_bar_tasks}">Tasks</a></li>
                         </ul>
                     </li>
@@ -89,7 +89,7 @@
                     <li><a class="text-dark" sec:authorize="isAuthenticated()" th:href="@{/home}" th:text="#{nav_bar_home}">Home</a></li>
                     <li><a class="text-dark" sec:authorize="isAuthenticated()" th:href="@{/containers/all/page/1}" th:text="#{nav_bar_storage}">Storage</a></li>
                     <li><a class="text-dark" sec:authorize="isAuthenticated()" th:href="@{/companies/all}" th:text="#{nav_bar_companies}">Companies</a></li>
-                    <li><a class="text-dark" sec:authorize="isAuthenticated()" th:href="@{/containers/requests/all}" th:text="#{nav_bar_requests}">Requests</a></li>
+                    <li><a class="text-dark" sec:authorize="isAuthenticated()" th:href="@{/containers/requests/all/page/1}" th:text="#{nav_bar_requests}">Requests</a></li>
                     <li><a class="text-dark" th:href="@{/about-us}" th:text="#{nav_bar_about}">About us</a></li>
                     <li><a class="text-dark" th:href="@{/contacts}" th:text="#{nav_bar_contacts}">Contacts</a></li>
 
