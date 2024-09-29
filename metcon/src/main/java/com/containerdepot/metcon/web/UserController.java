@@ -7,8 +7,13 @@ import com.containerdepot.metcon.service.dtos.imports.SignUpDto;
 import com.containerdepot.metcon.service.dtos.imports.UserDto;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedModel;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -52,6 +57,24 @@ public class UserController {
     }
     @GetMapping("/users")
     public String viewAllUsers() {
+        return "users-all";
+    }
+
+    @GetMapping("/users/page/{pageNumber}")
+    public String viewAllUsersPaged(Model model, @PageableDefault(
+            size = 5,
+            sort = "id",
+            direction = Sort.Direction.ASC
+    ) Pageable pageable, @PathVariable("pageNumber") int currentPage) {
+        PagedModel<UserDto> allUsersPaged = this.userService.getAllUsersPaged(pageable, currentPage);
+        long totalElements = allUsersPaged.getMetadata().totalElements();
+        long totalPages = allUsersPaged.getMetadata().totalPages();
+
+        model.addAttribute("allUsersPaged", allUsersPaged);
+        model.addAttribute("totalElements", totalElements);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", currentPage);
+
         return "users-all";
     }
     @PostMapping("/register")

@@ -9,6 +9,9 @@ import com.containerdepot.metcon.service.UserService;
 import com.containerdepot.metcon.service.dtos.imports.SignUpDto;
 import com.containerdepot.metcon.service.dtos.imports.UserDto;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -62,6 +65,16 @@ public class UserServiceImpl implements UserService {
             mapped.setRoles(userEntity.getRoles().stream().map(role -> role.getRole().toString()).collect(Collectors.joining(", ")));
             return mapped;
         }).collect(Collectors.toList());
+    }
+    @Override
+    public PagedModel<UserDto> getAllUsersPaged(Pageable pageable, int pageNumber) {
+        pageable = PageRequest.of(pageNumber - 1, 10);
+        return new PagedModel<>(this.userRepository.findAll(pageable).map(userEntity -> {
+            UserDto mapped = this.modelMapper.map(userEntity, UserDto.class);
+            mapped.setCompany(userEntity.getCompany().getNameEn());
+            mapped.setRoles(userEntity.getRoles().stream().map(role -> role.getRole().toString()).collect(Collectors.joining(", ")));
+            return mapped;
+        }));
     }
 
     @Override
